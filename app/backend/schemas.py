@@ -1,8 +1,23 @@
+import json
 from enum import Enum
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Literal
 from uuid import uuid4
 from pydantic import BaseModel, Field, model_validator
+
+
+def _resolve_rules_root() -> Path:
+    candidates = [
+        Path("/app/data/rules"),
+        Path("/data/rules"),
+        Path(__file__).resolve().parents[2] / "data" / "rules",
+        Path(__file__).resolve().parents[1] / "data" / "rules",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return Path("/app/data/rules")
 
 
 class Ability(str, Enum):
@@ -92,11 +107,36 @@ class CharacterCreationState(BaseModel):
             raise ValueError("Background boosts must be +2/+1 or +1/+1/+1")
         return self
 
+    @model_validator(mode="after")
+    def validate_subclass_selection(self):
+        if not self.subclass_id:
+            return self
+
+        rules_root = _resolve_rules_root()
+        subclasses_path = rules_root / "subclasses.json"
+        if not subclasses_path.exists():
+            return self
+
+        subclasses_catalog = json.loads(subclasses_path.read_text(encoding="utf-8"))
+        subclass_record = next((entry for entry in subclasses_catalog if entry.get("id") == self.subclass_id), None)
+        if subclass_record is None:
+            raise ValueError(f"Vybrané podpovolání '{self.subclass_id}' neexistuje v katalogu pravidel.")
+
+        class_path = rules_root / "classes" / f"{self.class_id}.json"
+        if class_path.exists():
+            class_rule = json.loads(class_path.read_text(encoding="utf-8"))
+            if subclass_record.get("class_id") != self.class_id:
+                raise ValueError(f"Podpovolání '{subclass_record.get('name', self.subclass_id)}' nepatří k povolání {class_rule['name']}.")
+            if self.level < class_rule.get("subclass_level", 3):
+                raise ValueError(f"Subclass selection available at level {class_rule['subclass_level']}")
+
+        return self
+
 
 class InventoryItem(BaseModel):
     id: str = Field(default_factory=lambda: uuid4().hex[:8])
     name: str = Field(min_length=1, max_length=120)
-    category: Literal["weapon", "armor", "item", "currency"] = "item"
+    category: Literal["weapon", "armor", "item", "tool", "currency"] = "item"
     quantity: int = Field(default=1, ge=0)
     notes: str = Field(default="", max_length=500)
 

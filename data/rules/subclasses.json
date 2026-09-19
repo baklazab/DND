@@ -1,0 +1,66 @@
+[
+  {
+    "id": "battle-master",
+    "class_id": "fighter",
+    "name": "Battle Master",
+    "level": 3,
+    "description": "Tactical combatant who uses maneuvers to control the battlefield and outplay opponents.",
+    "features": ["Combat Superiority", "Student of War"]
+  },
+  {
+    "id": "ancestral-guardian",
+    "class_id": "barbarian",
+    "name": "Path of the Ancestral Guardian",
+    "level": 3,
+    "description": "Barbarian who channels the protection of ancestral spirits and guards allies from harm.",
+    "features": ["Ancestral Protectors"]
+  },
+  {
+    "id": "way-of-the-open-hand",
+    "class_id": "monk",
+    "name": "Way of the Open Hand",
+    "level": 3,
+    "description": "Monk who turns precise strikes and disciplined movement into devastating control.",
+    "features": ["Open Hand Technique"]
+  },
+  {
+    "id": "life-domain",
+    "class_id": "cleric",
+    "name": "Life Domain",
+    "level": 3,
+    "description": "Cleric focused on healing, protection, and sustaining the party.",
+    "features": ["Bonus Proficiency", "Preserve Life"]
+  },
+  {
+    "id": "hunter",
+    "class_id": "ranger",
+    "name": "Hunter",
+    "level": 3,
+    "description": "Ranger whose mastery of the hunt makes them relentless in pursuit and ambush.",
+    "features": ["Hunter's Prey"]
+  },
+  {
+    "id": "arcane-trickster",
+    "class_id": "rogue",
+    "name": "Arcane Trickster",
+    "level": 3,
+    "description": "Rogue who blends stealth, precision, and magic in cunning attacks and misdirection.",
+    "features": ["Mage Hand Legerdemain"]
+  },
+  {
+    "id": "college-of-lore",
+    "class_id": "bard",
+    "name": "College of Lore",
+    "level": 3,
+    "description": "Bard whose studies extend beyond performance into magic, history, and broad expertise.",
+    "features": ["Cutting Words", "Additional Magical Secrets"]
+  },
+  {
+    "id": "champion",
+    "class_id": "fighter",
+    "name": "Champion",
+    "level": 3,
+    "description": "Fighter who excels at raw combat power, precision, and relentless offense.",
+    "features": ["Improved Critical", "Remarkable Athlete"]
+  }
+]

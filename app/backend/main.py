@@ -43,7 +43,8 @@ def rules_catalog() -> dict[str, object]:
     catalog["srd_sections"] = json.loads((rules_root / "srd-sections" / "index.json").read_text(encoding="utf-8"))
     for catalog_name in ("masteries", "feats", "weapons", "armor", "tools"):
         catalog[catalog_name] = json.loads((rules_root / f"{catalog_name}.json").read_text(encoding="utf-8"))
-    catalog["subclasses"] = json.loads((rules_root / "subclasses.json").read_text(encoding="utf-8"))
+    subclasses_path = rules_root / "subclasses.json"
+    catalog["subclasses"] = json.loads(subclasses_path.read_text(encoding="utf-8")) if subclasses_path.exists() else []
     catalog["spellcasting"] = json.loads((rules_root / "spellcasting.json").read_text(encoding="utf-8"))
     catalog["starting_equipment"] = json.loads((rules_root / "starting-equipment.json").read_text(encoding="utf-8"))
     catalog["class_levels"] = json.loads((rules_root / "class-levels.json").read_text(encoding="utf-8"))

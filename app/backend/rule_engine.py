@@ -92,7 +92,10 @@ def _load_rule(category: str, identifier: str, rules_root: Path) -> dict:
 
 
 def _load_catalog(filename: str, rules_root: Path) -> Any:
-    return json.loads((rules_root / filename).read_text(encoding="utf-8"))
+    path = rules_root / filename
+    if not path.exists():
+        return []
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def get_level_from_xp(xp: int) -> int:
@@ -278,8 +281,11 @@ def calculate_stats(state: CharacterCreationState, rules_root: Path = DEFAULT_RU
     all_class_levels = _load_catalog("class-levels.json", rules_root).get(state.class_id, {})
     subclasses_catalog = _load_catalog("subclasses.json", rules_root)
     subclass_record = next((entry for entry in subclasses_catalog if entry.get("id") == state.subclass_id), None)
-    if state.subclass_id and subclass_record is None:
-        raise ValueError(f"Vybrané podpovolání '{state.subclass_id}' neexistuje v katalogu pravidel.")
+    if state.subclass_id:
+        if not subclasses_catalog:
+            raise ValueError("Tento katalog pravidel neobsahuje podpovolání; vyberte si jinou postavu nebo pokračujte bez podpovolání.")
+        if subclass_record is None:
+            raise ValueError(f"Vybrané podpovolání '{state.subclass_id}' neexistuje v katalogu pravidel.")
     if state.subclass_id and subclass_record and subclass_record.get("class_id") != state.class_id:
         raise ValueError(f"Podpovolání '{subclass_record.get('name', state.subclass_id)}' nepatří k povolání {class_rule['name']}.")
     if state.subclass_id and state.level < class_rule["subclass_level"]:
