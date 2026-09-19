@@ -1,0 +1,20 @@
+{
+  "id": "revivify",
+  "name": "Revivify",
+  "level": 3,
+  "school": "Necromancy",
+  "casting_time": "Action",
+  "range_area": "Touch",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "Diamonds worth 300 GP, consumed by the spell",
+  "duration": "Instantaneous",
+  "description": "You touch a creature that has died within the last minute. That creature returns to life with 1 HP.",
+  "classes": [
+    "cleric",
+    "paladin"
+  ]
+}

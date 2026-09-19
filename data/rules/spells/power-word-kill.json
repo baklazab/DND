@@ -1,0 +1,20 @@
+{
+  "id": "power-word-kill",
+  "name": "Power Word Kill",
+  "level": 9,
+  "school": "Enchantment",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V"
+  ],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "You utter a word of power that can compel one creature you can see within range to die instantly.",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

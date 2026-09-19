@@ -1,0 +1,20 @@
+{
+  "id": "teleportation-circle",
+  "name": "Teleportation Circle",
+  "level": 5,
+  "school": "Conjuration",
+  "casting_time": "1 minute",
+  "range_area": "10 feet",
+  "components": [
+    "V",
+    "M"
+  ],
+  "material_cost": "Rare inks and herbs worth 50 GP",
+  "duration": "1 round",
+  "description": "As you cast the spell, you draw a 10-foot-diameter circle on the floor that links to a teleportation circle.",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "wizard"
+  ]
+}

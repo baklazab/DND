@@ -1,0 +1,25 @@
+{
+  "id": "goliath",
+  "name": "Goliath",
+  "size": "Medium",
+  "speed": 35,
+  "darkvision": false,
+  "traits": ["Giant Ancestry", "Large Form", "Powerful Build"],
+  "options": [
+    {
+      "id": "giant-ancestry",
+      "name": "Giant Ancestry",
+      "type": "choice",
+      "count": 1,
+      "description": "Vyber rodovou linii obrů.",
+      "choices": [
+        {"id": "cloud-giant", "name": "Cloud Giant (Cloud's Jaunt teleportace)"},
+        {"id": "fire-giant", "name": "Fire Giant (Fire's Burn dodatečné ohnivé poškození)"},
+        {"id": "frost-giant", "name": "Frost Giant (Frost's Chill mrazivé poškození a zpomalení)"},
+        {"id": "hill-giant", "name": "Hill Giant (Hill's Tumble sražení k zemi)"},
+        {"id": "stone-giant", "name": "Stone Giant (Stone's Endurance snížení utrženého poškození)"},
+        {"id": "storm-giant", "name": "Storm Giant (Storm's Thunder blesková reakce)"}
+      ]
+    }
+  ]
+}

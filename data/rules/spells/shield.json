@@ -1,0 +1,1 @@
+{"id":"shield","name":"Shield","level":1,"school":"Abjuration","casting_time":"Reaction","range_area":"Self","components":["V","S"],"material_cost":null,"duration":"1 round","description":"Your Armor Class increases by 5 until the start of your next turn.","classes":["sorcerer","wizard"]}

@@ -1,0 +1,1 @@
+{"id":"guidance","name":"Guidance","level":0,"school":"Divination","casting_time":"Action","range_area":"Touch","components":["V","S"],"material_cost":null,"duration":"Concentration, up to 1 minute","description":"The touched creature adds a die to one ability check.","classes":["cleric","druid"]}

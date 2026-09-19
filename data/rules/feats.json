@@ -1,0 +1,16 @@
+[
+  {"id": "alert", "name": "Alert", "category": "origin"},
+  {"id": "crafter", "name": "Crafter", "category": "origin"},
+  {"id": "healer", "name": "Healer", "category": "origin"},
+  {"id": "lucky", "name": "Lucky", "category": "origin"},
+  {"id": "magic-initiate", "name": "Magic Initiate", "category": "origin"},
+  {"id": "magic-initiate-cleric", "name": "Magic Initiate (Cleric)", "category": "origin"},
+  {"id": "magic-initiate-druid", "name": "Magic Initiate (Druid)", "category": "origin"},
+  {"id": "magic-initiate-warlock", "name": "Magic Initiate (Warlock)", "category": "origin"},
+  {"id": "magic-initiate-wizard", "name": "Magic Initiate (Wizard)", "category": "origin"},
+  {"id": "musician", "name": "Musician", "category": "origin"},
+  {"id": "savage-attacker", "name": "Savage Attacker", "category": "origin"},
+  {"id": "skilled", "name": "Skilled", "category": "origin"},
+  {"id": "tavern-brawler", "name": "Tavern Brawler", "category": "origin"},
+  {"id": "tough", "name": "Tough", "category": "origin"}
+]

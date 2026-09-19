@@ -1,0 +1,21 @@
+{
+  "id": "earthquake",
+  "name": "Earthquake",
+  "level": 8,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "500 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A pinch of dirt and a pebble",
+  "duration": "Concentration, up to 1 minute",
+  "description": "You create a seismic disturbance in a 100-foot-radius circle centered on a point.",
+  "classes": [
+    "cleric",
+    "druid",
+    "sorcerer"
+  ]
+}

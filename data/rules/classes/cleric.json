@@ -1,0 +1,1 @@
+{"id":"cleric","name":"Cleric","hit_die":8,"primary_ability":["wisdom"],"saving_throws":["wisdom","charisma"],"weapon_mastery_count":0,"subclass_level":3,"armor_training":["light","medium","shields"],"spellcasting":"full","proficiencies":["light armor","medium armor","shields","simple weapons"],"features":["Divine Order","Spellcasting","Channel Divinity"]}

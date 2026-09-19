@@ -1,0 +1,24 @@
+{
+  "id": "human",
+  "name": "Human",
+  "size": "Medium or Small",
+  "speed": 30,
+  "darkvision": false,
+  "traits": ["Resourceful", "Skillful", "Versatile"],
+  "options": [
+    {
+      "id": "human-skill",
+      "name": "Skillful",
+      "type": "skill",
+      "count": 1,
+      "description": "Získáváš zdatnost v 1 dovednosti dle vlastního výboru."
+    },
+    {
+      "id": "human-feat",
+      "name": "Versatile",
+      "type": "origin_feat",
+      "count": 1,
+      "description": "Získáváš 1 dodatečný Origin Feat dle vlastního výboru."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "teleport",
+  "name": "Teleport",
+  "level": 7,
+  "school": "Conjuration",
+  "casting_time": "Action",
+  "range_area": "10 feet",
+  "components": [
+    "V"
+  ],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "This spell instantly transports you and up to eight willing creatures to a destination you select.",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "wizard"
+  ]
+}

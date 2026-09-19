@@ -1,0 +1,19 @@
+{
+  "id": "heal",
+  "name": "Heal",
+  "level": 6,
+  "school": "Abjuration",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V",
+    "S"
+  ],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "Choose a creature. A surge of positive energy washes through the target, restoring 70 hit points.",
+  "classes": [
+    "cleric",
+    "druid"
+  ]
+}

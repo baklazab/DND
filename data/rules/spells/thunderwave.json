@@ -1,0 +1,1 @@
+{"id":"thunderwave","name":"Thunderwave","level":1,"school":"Evocation","casting_time":"Action","range_area":"Self, 15-foot cube","components":["V","S"],"material_cost":null,"duration":"Instantaneous","description":"Thunderous energy deals damage and can push creatures away.","classes":["bard","druid","sorcerer","wizard"]}

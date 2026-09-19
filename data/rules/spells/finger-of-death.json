@@ -1,0 +1,20 @@
+{
+  "id": "finger-of-death",
+  "name": "Finger of Death",
+  "level": 7,
+  "school": "Necromancy",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V",
+    "S"
+  ],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "You send negative energy coursing through a creature that you can see within range.",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

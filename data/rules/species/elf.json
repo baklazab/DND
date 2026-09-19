@@ -1,0 +1,22 @@
+{
+  "id": "elf",
+  "name": "Elf",
+  "size": "Medium",
+  "speed": 30,
+  "darkvision": true,
+  "traits": ["Darkvision", "Fey Ancestry", "Keen Senses", "Elven Lineage"],
+  "options": [
+    {
+      "id": "elven-lineage",
+      "name": "Elven Lineage",
+      "type": "choice",
+      "count": 1,
+      "description": "Vyber elfskou linii.",
+      "choices": [
+        {"id": "drow", "name": "Drow (Vidění ve tmě 120 ft, kouzlo Dancing Lights)"},
+        {"id": "high-elf", "name": "High Elf (Kouzlo Prestidigitation nebo jiné Wizard cantripy)"},
+        {"id": "wood-elf", "name": "Wood Elf (Rychlost 35 ft, kouzlo Druidcraft)"}
+      ]
+    }
+  ]
+}

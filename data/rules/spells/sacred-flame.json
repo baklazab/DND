@@ -1,0 +1,1 @@
+{"id":"sacred-flame","name":"Sacred Flame","level":0,"school":"Evocation","casting_time":"Action","range_area":"60 feet","components":["V","S"],"material_cost":null,"duration":"Instantaneous","description":"A creature makes a Dexterity saving throw or takes radiant damage.","classes":["cleric"]}

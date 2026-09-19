@@ -1,0 +1,28 @@
+﻿# Zdrojová specifikace světa a kampaně
+
+> Tento soubor je prázdný placeholder.
+> V rámci projektu se nepoužívá žádný fiktivní svět, příběh ani kampanická lore.
+> Veškeré skutečné informace se odvozují výhradně z autorizovaných zdrojů D&D 2024.
+
+---
+
+# Stav projektu
+
+- Hlavní zaměření: tvorba postavy, staty, inventář a pravidlové metriky.
+- Příběh, svět a lokace jsou zatím nevyplněné a musí být zadány explicitně a znovu.
+- Není povoleno vkládat neověřené fiktivní narativy do kódu, UI ani zdrojových dat.
+
+## Povinné pravidlo pro budoucí obsah
+
+Před přidáním jakéhokoli světa, kampaně nebo lore je nutné:
+
+- uvést název světa a kampaně,
+- vymezit hlavní témata a lokace,
+- připojit autoritativní zdroj nebo vlastní nově vytvořený obsah s jasným označením,
+- potvrdit, že daný obsah není ve střetu s pravidly D&D 2024.
+
+---
+
+# Poznámka pro vývoj
+
+Tento soubor slouží výhradně jako neutralizační placeholder. Pokud bude v budoucnu přidán nový příběh nebo svět, musí být zapsán odděleně a racionálně, nikoli do stávající aplikace jako implicitní lore.

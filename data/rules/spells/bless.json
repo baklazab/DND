@@ -1,0 +1,1 @@
+{"id":"bless","name":"Bless","level":1,"school":"Enchantment","casting_time":"Action","range_area":"30 feet","components":["V","S","M"],"material_cost":null,"duration":"Concentration, up to 1 minute","description":"Up to three creatures add a die to attack rolls and saving throws.","classes":["cleric","paladin"]}

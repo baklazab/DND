@@ -1,0 +1,19 @@
+{
+  "level_max": 20,
+  "standard_languages": ["Common", "Common Sign Language", "Draconic", "Dwarvish", "Elvish", "Giant", "Gnomish", "Goblin", "Halfling", "Orc"],
+  "alignment_options": ["Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral", "Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil", "Chaotic Evil"],
+  "skill_choices": {
+    "barbarian": {"count": 2, "options": ["animal handling", "athletics", "intimidation", "nature", "perception", "survival"]},
+    "bard": {"count": 3, "options": ["acrobatics", "animal handling", "arcana", "athletics", "deception", "history", "insight", "intimidation", "investigation", "medicine", "nature", "perception", "performance", "persuasion", "religion", "sleight of hand", "stealth", "survival"]},
+    "cleric": {"count": 2, "options": ["history", "insight", "medicine", "persuasion", "religion"]},
+    "druid": {"count": 2, "options": ["arcana", "animal handling", "insight", "medicine", "nature", "perception", "religion", "survival"]},
+    "fighter": {"count": 2, "options": ["acrobatics", "animal handling", "athletics", "history", "insight", "intimidation", "persuasion", "perception", "survival"]},
+    "monk": {"count": 2, "options": ["acrobatics", "athletics", "history", "insight", "religion", "stealth"]},
+    "paladin": {"count": 2, "options": ["athletics", "insight", "intimidation", "medicine", "persuasion", "religion"]},
+    "ranger": {"count": 3, "options": ["animal handling", "athletics", "insight", "investigation", "nature", "perception", "stealth", "survival"]},
+    "rogue": {"count": 4, "options": ["acrobatics", "athletics", "deception", "insight", "intimidation", "investigation", "perception", "persuasion", "sleight of hand", "stealth"]},
+    "sorcerer": {"count": 2, "options": ["arcana", "deception", "insight", "intimidation", "persuasion", "religion"]},
+    "warlock": {"count": 2, "options": ["arcana", "deception", "history", "intimidation", "investigation", "nature", "religion"]},
+    "wizard": {"count": 2, "options": ["arcana", "history", "insight", "investigation", "medicine", "religion"]}
+  }
+}

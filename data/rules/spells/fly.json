@@ -1,0 +1,21 @@
+{
+  "id": "fly",
+  "name": "Fly",
+  "level": 3,
+  "school": "Transmutation",
+  "casting_time": "Action",
+  "range_area": "Touch",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A wing feather from any bird",
+  "duration": "Concentration, up to 10 minutes",
+  "description": "You touch a willing creature. The target gains a flying speed of 60 feet for the duration.",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

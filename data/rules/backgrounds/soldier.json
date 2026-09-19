@@ -1,0 +1,9 @@
+{
+  "id": "soldier",
+  "name": "Soldier",
+  "allowed_ability_boosts": ["strength", "dexterity", "constitution"],
+  "origin_feat": "Savage Attacker",
+  "skills": ["athletics", "intimidation"],
+  "tool": "smith's tools",
+  "equipment": ["spear", "shield", "traveler's clothes", "50 GP"]
+}

@@ -1,0 +1,16 @@
+[
+  {"id":"unarmored","name":"Unarmored","category":"unarmored","base_ac":10,"dexterity_cap":null},
+  {"id":"padded","name":"Padded Armor","category":"light","base_ac":11,"dexterity_cap":null},
+  {"id":"leather","name":"Leather Armor","category":"light","base_ac":11,"dexterity_cap":null},
+  {"id":"studded-leather","name":"Studded Leather","category":"light","base_ac":12,"dexterity_cap":null},
+  {"id":"hide","name":"Hide Armor","category":"medium","base_ac":12,"dexterity_cap":2},
+  {"id":"chain-shirt","name":"Chain Shirt","category":"medium","base_ac":13,"dexterity_cap":2},
+  {"id":"scale-mail","name":"Scale Mail","category":"medium","base_ac":14,"dexterity_cap":2},
+  {"id":"breastplate","name":"Breastplate","category":"medium","base_ac":14,"dexterity_cap":2},
+  {"id":"half-plate","name":"Half Plate","category":"medium","base_ac":15,"dexterity_cap":2},
+  {"id":"ring-mail","name":"Ring Mail","category":"heavy","base_ac":14,"dexterity_cap":0},
+  {"id":"chain-mail","name":"Chain Mail","category":"heavy","base_ac":16,"dexterity_cap":0},
+  {"id":"splint","name":"Splint","category":"heavy","base_ac":17,"dexterity_cap":0},
+  {"id":"plate","name":"Plate","category":"heavy","base_ac":18,"dexterity_cap":0},
+  {"id":"shield","name":"Shield","category":"shield","base_ac":2,"dexterity_cap":0}
+]

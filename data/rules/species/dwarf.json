@@ -1,0 +1,8 @@
+{
+  "id": "dwarf",
+  "name": "Dwarf",
+  "size": "Medium",
+  "speed": 30,
+  "darkvision": true,
+  "traits": ["Darkvision", "Dwarven Toughness", "Dwarven Resilience"]
+}

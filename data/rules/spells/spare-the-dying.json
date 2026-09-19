@@ -1,0 +1,1 @@
+{"id":"spare-the-dying","name":"Spare the Dying","level":0,"school":"Necromancy","casting_time":"Action","range_area":"Touch","components":["V","S"],"material_cost":null,"duration":"Instantaneous","description":"The touched creature has 1 Hit Point and is stable.","classes":["cleric"]}

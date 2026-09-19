@@ -1,0 +1,42 @@
+[
+  {
+    "id": "cleave",
+    "name": "Cleave",
+    "summary": "Po zásahu můžeš zaútočit stejnou zbraní na jiného tvora v dosahu."
+  },
+  {
+    "id": "graze",
+    "name": "Graze",
+    "summary": "Při minutí způsobíš minimálně 1 zranění podle použité vlastnosti."
+  },
+  {
+    "id": "nick",
+    "name": "Nick",
+    "summary": "Další útok z vlastnosti Light může být součástí Attack akce místo Bonus akce."
+  },
+  {
+    "id": "push",
+    "name": "Push",
+    "summary": "Po zásahu můžeš tvora odtlačit o 10 stop, pokud není o více než jednu velikost větší."
+  },
+  {
+    "id": "sap",
+    "name": "Sap",
+    "summary": "Po zásahu má cíl nevýhodu na svůj další útok před začátkem tvého dalšího tahu."
+  },
+  {
+    "id": "slow",
+    "name": "Slow",
+    "summary": "Po zásahu se rychlost cíle sníží o 10 stop do začátku tvého dalšího tahu."
+  },
+  {
+    "id": "topple",
+    "name": "Topple",
+    "summary": "Po zásahu musí cíl uspět na záchranný hod na Constitution, jinak padne k zemi."
+  },
+  {
+    "id": "vex",
+    "name": "Vex",
+    "summary": "Po zásahu nebo kritickém zásahu získáš výhodu na svůj další útok proti cíli."
+  }
+]

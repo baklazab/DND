@@ -1,0 +1,23 @@
+{
+  "id": "banishment",
+  "name": "Banishment",
+  "level": 4,
+  "school": "Abjuration",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "An item distasteful to the target",
+  "duration": "Concentration, up to 1 minute",
+  "description": "You attempt to send one creature that you can see within range to another plane of existence.",
+  "classes": [
+    "cleric",
+    "paladin",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

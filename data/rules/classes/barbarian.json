@@ -1,0 +1,1 @@
+{"id":"barbarian","name":"Barbarian","hit_die":12,"primary_ability":["strength"],"saving_throws":["strength","constitution"],"weapon_mastery_count":2,"subclass_level":3,"armor_training":["light","medium","shields"],"spellcasting":"none","proficiencies":["simple weapons","martial weapons"],"features":["Rage","Unarmored Defense","Weapon Mastery"]}

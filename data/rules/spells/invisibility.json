@@ -1,0 +1,22 @@
+{
+  "id": "invisibility",
+  "name": "Invisibility",
+  "level": 2,
+  "school": "Illusion",
+  "casting_time": "Action",
+  "range_area": "Touch",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "An eyelash encased in gum arabic",
+  "duration": "Concentration, up to 1 hour",
+  "description": "A creature you touch becomes Invisible until the spell ends.",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

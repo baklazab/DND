@@ -1,0 +1,21 @@
+{
+  "id": "gnome",
+  "name": "Gnome",
+  "size": "Small",
+  "speed": 30,
+  "darkvision": true,
+  "traits": ["Gnomish Lineage", "Gnomish Cunning"],
+  "options": [
+    {
+      "id": "gnomish-lineage",
+      "name": "Gnomish Lineage",
+      "type": "choice",
+      "count": 1,
+      "description": "Vyber gnomskou linii.",
+      "choices": [
+        {"id": "forest-gnome", "name": "Forest Gnome (Kouzlo Minor Illusion, Mluvení s malými zvířaty)"},
+        {"id": "rock-gnome", "name": "Rock Gnome (Kouzlo Mending, Vylepšování zřízení)"}
+      ]
+    }
+  ]
+}

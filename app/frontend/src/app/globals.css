@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --ink: #e8dec9; --muted: #a99d87; --paper: #1b1b1a; --line: #3b3933; --accent: #d69b4a; --accent-ink: #281b0d; }
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: #111211; font-family: 'DM Sans', sans-serif; background-image: radial-gradient(circle at 10% 0%, #34281b 0, transparent 28rem), linear-gradient(130deg, #111211 0%, #1b1b1a 55%, #151b1a 100%); min-height: 100vh; }
+h1, h2, h3 { font-family: 'Cinzel', serif; letter-spacing: 0; }
+button, select, input { font: inherit; }
+button { cursor: pointer; }
+.panel { background: color-mix(in srgb, var(--paper) 93%, transparent); border: 1px solid var(--line); }
+.label { color: var(--muted); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+.choice { border: 1px solid var(--line); background: #22221f; padding: 1rem; text-align: left; transition: border-color .2s, background .2s; }
+.choice:hover, .choice.active { border-color: var(--accent); background: #2a261f; }
+.gold { color: var(--accent); }

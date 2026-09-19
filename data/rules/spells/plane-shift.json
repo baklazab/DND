@@ -1,0 +1,23 @@
+{
+  "id": "plane-shift",
+  "name": "Plane Shift",
+  "level": 7,
+  "school": "Conjuration",
+  "casting_time": "Action",
+  "range_area": "Touch",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A tuning fork attuned to the target plane",
+  "duration": "Instantaneous",
+  "description": "You and up to eight willing creatures join hands and transport to another plane of existence.",
+  "classes": [
+    "cleric",
+    "druid",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

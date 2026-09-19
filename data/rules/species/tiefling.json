@@ -1,0 +1,22 @@
+{
+  "id": "tiefling",
+  "name": "Tiefling",
+  "size": "Medium or Small",
+  "speed": 30,
+  "darkvision": true,
+  "traits": ["Darkvision", "Fiendish Legacy", "Otherworldly Presence"],
+  "options": [
+    {
+      "id": "fiendish-legacy",
+      "name": "Fiendish Legacy",
+      "type": "choice",
+      "count": 1,
+      "description": "Vyber ďábelské dědictví.",
+      "choices": [
+        {"id": "abyssal", "name": "Abyssal (Odolnost vůči jedu, cantrip Poison Spray)"},
+        {"id": "chthonic", "name": "Chthonic (Odolnost vůči nekrotickému poškození, cantrip Chill Touch)"},
+        {"id": "infernal", "name": "Infernal (Odolnost vůči ohni, cantrip Fire Bolt)"}
+      ]
+    }
+  ]
+}

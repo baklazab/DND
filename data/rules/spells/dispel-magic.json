@@ -1,0 +1,25 @@
+{
+  "id": "dispel-magic",
+  "name": "Dispel Magic",
+  "level": 3,
+  "school": "Abjuration",
+  "casting_time": "Action",
+  "range_area": "120 feet",
+  "components": [
+    "V",
+    "S"
+  ],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "Choose a creature, object, or magical effect. Any spell of 3rd level or lower on the target ends.",
+  "classes": [
+    "bard",
+    "cleric",
+    "druid",
+    "paladin",
+    "ranger",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

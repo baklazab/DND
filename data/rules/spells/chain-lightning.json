@@ -1,0 +1,20 @@
+{
+  "id": "chain-lightning",
+  "name": "Chain Lightning",
+  "level": 6,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "150 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A bit of fur and a amber rod",
+  "duration": "Instantaneous",
+  "description": "You create a bolt of lightning that arcs from a primary target to up to three other targets.",
+  "classes": [
+    "sorcerer",
+    "wizard"
+  ]
+}

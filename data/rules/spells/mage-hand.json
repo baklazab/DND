@@ -1,0 +1,1 @@
+{"id":"mage-hand","name":"Mage Hand","level":0,"school":"Conjuration","casting_time":"Action","range_area":"30 feet","components":["V","S"],"material_cost":null,"duration":"1 minute","description":"A spectral hand manipulates objects at range.","classes":["bard","sorcerer","warlock","wizard"]}

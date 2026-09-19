@@ -1,0 +1,1 @@
+{"id":"warlock","name":"Warlock","hit_die":8,"primary_ability":["charisma"],"saving_throws":["wisdom","charisma"],"weapon_mastery_count":0,"subclass_level":3,"armor_training":["light"],"spellcasting":"pact","proficiencies":["light armor","simple weapons"],"features":["Pact Magic","Eldritch Invocations"]}

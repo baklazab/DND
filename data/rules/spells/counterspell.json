@@ -1,0 +1,19 @@
+{
+  "id": "counterspell",
+  "name": "Counterspell",
+  "level": 3,
+  "school": "Abjuration",
+  "casting_time": "Reaction",
+  "range_area": "60 feet",
+  "components": [
+    "S"
+  ],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "You attempt to interrupt a creature in the process of casting a spell.",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

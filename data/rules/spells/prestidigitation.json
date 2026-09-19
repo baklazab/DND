@@ -1,0 +1,1 @@
+{"id":"prestidigitation","name":"Prestidigitation","level":0,"school":"Transmutation","casting_time":"Action","range_area":"10 feet","components":["V","S"],"material_cost":null,"duration":"Up to 1 hour","description":"You create minor magical effects within the spell's limits.","classes":["bard","sorcerer","warlock","wizard"]}

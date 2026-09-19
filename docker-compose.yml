@@ -1,0 +1,39 @@
+services:
+  backend:
+    build:
+      context: ./app/backend
+      dockerfile: Dockerfile
+    container_name: dnd-character-backend
+    ports:
+      - "8000:8000"
+    environment:
+      RULES_ROOT: /app/data/rules
+      PYTHONPATH: /app
+    volumes:
+      - ./app/backend:/app/backend
+      - ./data/rules:/app/data/rules:ro
+      - ./data/characters:/app/data/characters
+    command: uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build:
+      context: ./app/frontend
+      dockerfile: Dockerfile
+    container_name: dnd-character-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    command: sh -c "find /app/.next -mindepth 1 -maxdepth 1 -exec rm -rf {} +; npm run dev -- --hostname 0.0.0.0"
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: dnd-character-ngrok
+    environment:
+      NGROK_AUTHTOKEN: 3J91lcSdczFAKMbTGamd8kKTq7x_4xuGzU9i1JMTQMvSyzaMe
+    depends_on:
+      - frontend
+    command: http frontend:3000 --url https://crayfish-swooned-reformat.ngrok-free.dev

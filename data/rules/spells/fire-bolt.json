@@ -1,0 +1,1 @@
+{"id":"fire-bolt","name":"Fire Bolt","level":0,"school":"Evocation","casting_time":"Action","range_area":"120 feet","components":["V","S"],"material_cost":null,"duration":"Instantaneous","description":"A ranged spell attack deals fire damage on a hit.","classes":["sorcerer","wizard"]}

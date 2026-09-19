@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.next/
+node_modules/
+
+# Local OCR derivatives; keep the authoritative PHB sources and cleaned text.
+PHB24-ocr.txt
+PHB24-ocr.pdf
+PHB24-readable.txt

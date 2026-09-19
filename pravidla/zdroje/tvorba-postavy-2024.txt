@@ -1,0 +1,595 @@
+# Tvorba postavy podle oficiálních pravidel D&D 2024
+
+## Účel
+
+Tento dokument shrnuje tvorbu postavy podle oficiálních pravidel **Dungeons & Dragons 2024**, podle **System Reference Document 5.2.1**.
+
+Používej pouze oficiální pravidla D&D 2024. Nemíchej je s pravidly z roku 2014 ani s domácími pravidly.
+
+Pokud určitý prvek pochází z jiného oficiálního zdroje než ze System Reference Document 5.2.1, uveď jeho zdroj. Pokud je použita domácí úprava, označ ji jako **Homebrew**.
+
+Rozlišuj mezi:
+
+- volbou hráče,
+- hodnotou získanou z pravidel,
+- automaticky vypočítanou hodnotou,
+- příběhovým detailem,
+- oficiálním pravidlem,
+- domácím pravidlem.
+
+---
+
+# Praktická struktura tvorby postavy
+
+Následujících 15 bodů představuje praktickou strukturu tvorby postavy vhodnou pro hru nebo Character Builder.
+
+Nejde o doslovný přepis číslovaného pořadí všech odstavců ve System Reference Document 5.2.1. Některé volby se mohou vzájemně ovlivňovat a hráč nemusí u stolu postupovat přesně v tomto pořadí.
+
+## 1. Koncept postavy
+
+Hráč si vytvoří základní představu o postavě:
+
+- kdo postava je,
+- jakou má roli ve skupině,
+- odkud pochází,
+- co umí,
+- jaké má cíle,
+- proč se vydala na dobrodružství,
+- jaké má vztahy,
+- jaká přesvědčení nebo problémy ji ovlivňují.
+
+Tato část je převážně příběhová a sama o sobě neurčuje mechanické statistiky.
+
+## 2. Výběr Class
+
+Hráč si vybere jednu Class dostupnou v použitých oficiálních pravidlech.
+
+System Reference Document 5.2.1 obsahuje tyto Classy:
+
+- Barbarian
+- Bard
+- Cleric
+- Druid
+- Fighter
+- Monk
+- Paladin
+- Ranger
+- Rogue
+- Sorcerer
+- Warlock
+- Wizard
+
+Class určuje zejména:
+
+- Hit Die,
+- počet Hit Pointů,
+- Saving Throw Proficiencies,
+- Weapon Proficiencies,
+- Armor Training,
+- případné Tool Proficiencies,
+- Class Features,
+- schopnosti získávané na vyšších úrovních,
+- Class Resources,
+- schopnost kouzlit,
+- dostupné možnosti počátečního vybavení.
+
+Konkrétní Class může při tvorbě postavy nabídnout výběr například z:
+
+- Skill Proficiencies,
+- Weapon Proficiencies,
+- nástrojů,
+- cantripů,
+- kouzel,
+- dalších možností uvedených u dané Class.
+
+### Subclass
+
+Podle System Reference Document 5.2.1 si postava vybírá Subclass na **3. úrovni**.
+
+Subclass se tedy při tvorbě postavy na 1. úrovni standardně ještě nevybírá.
+
+## 3. Výběr Backgroundu
+
+Background představuje původ, předchozí povolání nebo životní zkušenosti postavy.
+
+Oficiální Background v D&D 2024 určuje:
+
+- tři Ability Scores spojené s Backgroundem,
+- zvýšení Ability Scores,
+- jednu Origin Feat,
+- dvě Skill Proficiencies,
+- jednu Tool Proficiency,
+- počáteční vybavení,
+- tematický a příběhový kontext.
+
+### Zvýšení Ability Scores
+
+Hráč zvýší Ability Scores uvedené v Backgroundu jedním z těchto způsobů:
+
+- jednu uvedenou vlastnost o **+2** a jinou uvedenou vlastnost o **+1**,
+- všechny tři uvedené vlastnosti o **+1**.
+
+Zvýšení lze použít pouze na Ability Scores uvedené v daném Backgroundu.
+
+Nelze je bez dalšího pravidla použít na libovolné Ability Scores.
+
+### Origin Feat z Backgroundu
+
+Background poskytuje jednu konkrétní Origin Feat uvedenou u daného Backgroundu.
+
+Hráč si v tomto kroku nevybírá libovolný feat z celé nabídky. Získává Origin Feat určenou Backgroundem.
+
+Pokud má feat požadavky, postava je musí splňovat.
+
+Oficiální Origin Feats v System Reference Document 5.2.1 zahrnují například:
+
+- Alert,
+- Crafter,
+- Healer,
+- Lucky,
+- Magic Initiate,
+- Musician,
+- Savage Attacker,
+- Skilled,
+- Tough.
+
+Používej pouze featy, které jsou v oficiálním zdroji označené jako Origin Feats.
+
+### Vlastní Background
+
+System Reference Document 5.2.1 obsahuje pravidla pro vytvoření vlastního Backgroundu.
+
+Vlastní Background může hráč vytvořit podle těchto pravidel, ale jeho použití podléhá schválení Dungeon Mastera.
+
+Vlastní Background není předtištěný Background ze System Reference Document 5.2.1. Je vytvořen pomocí oficiálních pravidel pro tvorbu vlastního Backgroundu.
+
+## 4. Výběr Species
+
+Hráč si vybere jednu Species dostupnou v použitých oficiálních pravidlech.
+
+System Reference Document 5.2.1 obsahuje například:
+
+- Dwarf,
+- Elf,
+- Gnome,
+- Halfling,
+- Human,
+- Orc,
+- Tiefling,
+- Dragonborn.
+
+Konkrétní dostupné Species závisí na použitém oficiálním zdroji.
+
+Species určuje zejména:
+
+- Creature Type,
+- Size,
+- Speed,
+- Life Span,
+- Species Traits,
+- zvláštní smysly,
+- odolnosti nebo jiné schopnosti uvedené u dané Species.
+
+### Ability Scores a Species
+
+Species v pravidlech D&D 2024 neposkytuje zvýšení Ability Scores.
+
+Zvýšení Ability Scores získává postava z Backgroundu.
+
+### Human
+
+Human ze System Reference Document 5.2.1 má mimo jiné tyto Species Traits:
+
+- **Resourceful** — postava získává Heroic Inspiration podle pravidel této schopnosti,
+- **Skillful** — postava získá zdatnost v jedné Skill podle svého výběru,
+- **Versatile** — postava získá jednu Origin Feat podle svého výběru.
+
+Další Origin Feat získaná prostřednictvím Human musí splňovat případné požadavky daného featu.
+
+## 5. Určení Ability Scores
+
+Postava má šest základních vlastností:
+
+- Strength,
+- Dexterity,
+- Constitution,
+- Intelligence,
+- Wisdom,
+- Charisma.
+
+Hráč určí jejich hodnoty metodou povolenou pravidly nebo metodou schválenou Dungeon Masterem.
+
+System Reference Document 5.2.1 uvádí zejména tyto metody:
+
+- **Standard Array**,
+- **Point Cost**,
+- určení hodnot pomocí kostek podle pravidel.
+
+Po určení základních hodnot hráč aplikuje zvýšení Ability Scores z Backgroundu.
+
+Z výsledných hodnot se vypočítají Ability Modifiers.
+
+## 6. Určení Proficiencies a Armor Training
+
+Postava získává Proficiencies z různých částí tvorby postavy, například z:
+
+- Class,
+- Backgroundu,
+- Species,
+- Featů,
+- dalších oficiálních Features.
+
+Může jít například o:
+
+- Skill Proficiencies,
+- Saving Throw Proficiencies,
+- Weapon Proficiencies,
+- Armor Training,
+- Tool Proficiencies,
+- jiné zdatnosti uvedené v oficiálních pravidlech.
+
+Pokud pravidlo nabízí výběr z více možností, hráč vybírá pouze z možností uvedených v daném pravidle.
+
+### Armor Training
+
+Armor Training určuje kategorie zbroje, které postava umí používat.
+
+Postava by neměla používat zbroj nebo štít, pro které nemá odpovídající Armor Training, pokud konkrétní oficiální pravidlo nestanoví výjimku.
+
+## 7. Určení jazyků
+
+Postava zná:
+
+- Common,
+- jeden další jazyk podle pravidel D&D 2024.
+
+Další jazyky může postava získat prostřednictvím:
+
+- Species Traits,
+- Backgroundu,
+- Class Features,
+- Featů,
+- jiných oficiálních pravidel.
+
+Jazyková volba musí odpovídat dostupným pravidlům a případným omezením uvedeným v daném pravidle.
+
+## 8. Určení dalších Origin Feats
+
+Postava na 1. úrovni získává Origin Feat z Backgroundu.
+
+Další Origin Feat může získat například prostřednictvím:
+
+- Human’s Versatile,
+- jiného oficiálního Species Trait,
+- jiné oficiální Feature.
+
+Hráč nesmí automaticky zvolit libovolný feat. Musí respektovat:
+
+- kategorii featu,
+- případné požadavky featu,
+- pravidlo, které feat poskytuje,
+- omezení uvedená u konkrétního featu.
+
+## 9. Výběr počátečního vybavení
+
+Hráč určí počáteční vybavení podle:
+
+- Class,
+- Backgroundu.
+
+Vybavení může zahrnovat:
+
+- zbraně,
+- zbroj,
+- štít,
+- nástroje,
+- dobrodružné vybavení,
+- kouzelnické pomůcky,
+- spotřební předměty,
+- měnu.
+
+Hráč vybírá z oficiálních možností uvedených u své Class a Backgroundu.
+
+Pokud pravidla příslušné Class umožňují místo vybavení použít počáteční měnu, může hráč použít tuto možnost podle pravidel dané Class.
+
+## 10. Výběr kouzel a Spellcasting
+
+Pokud Class nebo jiná oficiální Feature umožňuje postavě kouzlit, hráč vybírá kouzla podle pravidel dané Class nebo Feature.
+
+Podle konkrétní Class může hráč vybírat například:
+
+- cantripy,
+- připravená kouzla,
+- známá kouzla,
+- kouzla dostupná na 1. úrovni,
+- kouzla získaná prostřednictvím Featů.
+
+Hráč musí dodržet:
+
+- seznam kouzel dostupný pro danou Class,
+- požadovanou úroveň kouzla,
+- počet dostupných kouzel,
+- případné požadavky konkrétní Feature,
+- pravidla pro přípravu, výměnu nebo změnu kouzel.
+
+### Spellcasting statistiky
+
+U kouzlící postavy se podle Class nebo jiné Feature určí:
+
+- Spellcasting Ability,
+- Spell Save DC,
+- Spell Attack Bonus,
+- počet Spell Slots,
+- úrovně Spell Slots,
+- případné další zdroje související s kouzlením.
+
+Obecné vzorce jsou:
+
+- `Spell Save DC = 8 + Proficiency Bonus + Spellcasting Ability Modifier`
+- `Spell Attack Bonus = Proficiency Bonus + Spellcasting Ability Modifier`
+
+Pokud konkrétní oficiální pravidlo stanoví zvláštní způsob výpočtu, použije se toto konkrétní pravidlo.
+
+## 11. Výběr Alignmentu
+
+Hráč může zvolit jeden z devíti Alignmentů:
+
+- Lawful Good,
+- Neutral Good,
+- Chaotic Good,
+- Lawful Neutral,
+- Neutral,
+- Chaotic Neutral,
+- Lawful Evil,
+- Neutral Evil,
+- Chaotic Evil.
+
+Pravidla rovněž umožňují, aby postava neměla Alignment.
+
+Alignment popisuje obecný morální a etický směr postavy.
+
+Alignment by neměl být používán jako automatické omezení hráčových rozhodnutí, pokud konkrétní oficiální pravidlo nestanoví jinak.
+
+## 12. Doplnění osobních údajů a historie
+
+Hráč doplní informace, které popisují osobnost a historii postavy:
+
+- jméno,
+- vzhled,
+- věk,
+- výšku a hmotnost,
+- osobnost,
+- ideály,
+- pouta,
+- slabiny,
+- životní historii,
+- vztahy,
+- cíle,
+- důvody, proč se postava vydala na dobrodružství.
+
+Tyto údaje jsou příběhové, pokud z nich oficiální pravidlo neodvozuje konkrétní mechanický efekt.
+
+## 13. Výpočet odvozených hodnot
+
+Po dokončení základních voleb se určí nebo vypočítají zejména:
+
+- Ability Modifiers,
+- Proficiency Bonus,
+- Hit Point Maximum,
+- Armor Class,
+- Initiative,
+- Speed,
+- Saving Throw Modifiers,
+- Skill Modifiers,
+- Passive Perception,
+- Spell Save DC,
+- Spell Attack Bonus,
+- Spell Slots,
+- Weapon Attack Bonus,
+- Weapon Damage,
+- Class Resources,
+- další hodnoty poskytované Class Features, Species Traits nebo Feats.
+
+### Proficiency Bonus
+
+Proficiency Bonus je určen úrovní postavy a není volbou hráče.
+
+Na 1. úrovni je:
+
+`Proficiency Bonus = +2`
+
+### Hit Points
+
+Hit Point Maximum na 1. úrovni se určuje podle:
+
+- maximální hodnoty Hit Die dané Class,
+- Constitution Modifier,
+- dalších oficiálních bonusů nebo Features.
+
+### Armor Class
+
+Armor Class může záviset na:
+
+- použité zbroji,
+- Dexterity Modifier,
+- štítu,
+- Class Features,
+- Species Traits,
+- kouzlech,
+- Magic Items,
+- dalších oficiálních efektech.
+
+Armor Class nelze určit pouze z Dexterity bez zohlednění použité zbroje a dalších pravidel.
+
+### Initiative
+
+Initiative se standardně určuje podle Dexterity Modifier.
+
+Mohou ji upravovat například:
+
+- Feats,
+- Class Features,
+- Species Traits,
+- kouzla,
+- jiné oficiální efekty.
+
+## 14. Kontrola pravidel
+
+Před dokončením postavy ověř:
+
+- zda je zvolena právě jedna Class,
+- zda je zvolen právě jeden Background,
+- zda je zvolena právě jedna Species,
+- zda Ability Scores používají povolenou metodu,
+- zda byla zvýšení Ability Scores použita pouze podle Backgroundu,
+- zda všechny získané Proficiencies pocházejí z platných pravidel,
+- zda všechny Feats patří do správné kategorie,
+- zda jsou splněny požadavky jednotlivých Featů,
+- zda počáteční vybavení odpovídá Class a Backgroundu,
+- zda vybraná kouzla odpovídají pravidlům Class nebo Feature,
+- zda je správně určen Proficiency Bonus,
+- zda jsou správně vypočítány odvozené hodnoty,
+- zda žádná hodnota nepochází z pravidel D&D 2014 nebo z neoznačeného Homebrew obsahu.
+
+## 15. Dokončení postavy
+
+Po kontrole je postava připravena ke hře.
+
+Character Sheet by měl obsahovat:
+
+- jméno,
+- Class a úroveň,
+- Background,
+- Species,
+- Ability Scores,
+- Ability Modifiers,
+- Proficiency Bonus,
+- Saving Throws,
+- Skills,
+- Hit Points,
+- Armor Class,
+- Initiative,
+- Speed,
+- Hit Dice,
+- Proficiencies,
+- Feats,
+- počáteční vybavení,
+- měnu,
+- kouzla,
+- Spell Slots,
+- Spellcasting statistiky,
+- Alignment,
+- osobní údaje,
+- historii,
+- poznámky.
+
+---
+
+# Přehled hráčových voleb
+
+| Oblast | Co hráč volí |
+|---|---|
+| Koncept | Role, motivace a příběhový základ |
+| Class | Povolání |
+| Subclass | Na 3. úrovni podle pravidel Class |
+| Background | Původ postavy |
+| Ability Scores | Hodnoty šesti základních vlastností |
+| Metoda Ability Scores | Standard Array, Point Cost nebo pravidly povolená metoda |
+| Zvýšení Ability Scores | Podle Ability Scores uvedených v Backgroundu |
+| Species | Druh postavy |
+| Origin Feat | Feat poskytovaný Backgroundem |
+| Další Origin Feat | Pouze pokud ji poskytuje konkrétní oficiální Feature |
+| Skills | Výběr z možností poskytovaných Class nebo jiným pravidlem |
+| Tools | Výběr z možností poskytovaných Backgroundem, Class nebo jiným pravidlem |
+| Jazyky | Common a jeden další jazyk, případně další jazyky z jiných pravidel |
+| Vybavení | Počáteční vybavení z Class a Backgroundu |
+| Kouzla | Pouze u postav s odpovídající schopností |
+| Alignment | Jeden z devíti Alignmentů, nebo žádný Alignment |
+| Osobní údaje | Jméno, vzhled, osobnost a historie |
+
+---
+
+# Důležité rozdíly oproti D&D 2014
+
+- Používá se pojem **Species**, nikoli **Race**.
+- Species neposkytuje zvýšení Ability Scores.
+- Zvýšení Ability Scores poskytuje Background.
+- Background poskytuje Origin Feat.
+- Všechny Classy v System Reference Document 5.2.1 získávají Subclass na 3. úrovni.
+- Human může získat další Origin Feat prostřednictvím Species Trait **Versatile**.
+- Základní postava zná Common a jeden další jazyk.
+- Další jazyky mohou pocházet ze Species, Backgroundu nebo jiných oficiálních pravidel.
+- Postava může mít jeden z devíti Alignmentů nebo žádný Alignment.
+- Armor se v pravidlech D&D 2024 popisuje pomocí Armor Training.
+- Tvorba postavy zdůrazňuje kombinaci:
+  - Class,
+  - Background,
+  - Species.
+
+---
+
+# Pravidla pro AI agenta
+
+Při odpovědích o tvorbě postavy v D&D 2024:
+
+1. Používej pouze oficiální pravidla D&D 2024.
+2. Nemíchej pravidla z roku 2014 s pravidly z roku 2024.
+3. Neuváděj domácí pravidla jako oficiální.
+4. U každé mechanické volby uveď její zdroj:
+   - Class,
+   - Background,
+   - Species,
+   - Feat,
+   - jiné oficiální pravidlo.
+5. Neuváděj, že Species poskytuje zvýšení Ability Scores.
+6. Uváděj, že zvýšení Ability Scores pochází z Backgroundu.
+7. Uváděj, že Background poskytuje jednu Origin Feat.
+8. Uváděj, že Subclass se vybírá na 3. úrovni.
+9. Neuváděj, že postava automaticky získává dva další jazyky.
+10. Uváděj, že základní postava zná Common a jeden další jazyk.
+11. Uváděj, že postava může mít jeden z devíti Alignmentů nebo žádný Alignment.
+12. Rozlišuj mezi:
+    - mechanickou volbou,
+    - příběhovým detailem,
+    - hodnotou získanou z pravidel,
+    - automaticky vypočítanou hodnotou.
+13. Nepovažuj jméno, vzhled, věk, gender nebo osobní historii za mechanickou volbu, pokud z nich oficiální pravidla neodvozují konkrétní efekt.
+14. Nepřidávej volby, které oficiální pravidla D&D 2024 neposkytují.
+15. Pokud záleží na konkrétní knize, zdroji nebo verzi pravidel, uveď tento zdroj nebo na omezení upozorni.
+16. Pokud si nejsi jistý přesným zněním pravidla, nepředstírej jistotu.
+17. Nepopisuj rozsáhlé části placených knih doslovně. Používej stručná vlastní shrnutí.
+
+---
+
+# Doporučená struktura Character Builderu
+
+Aplikace může použít následující uživatelský postup:
+
+1. Koncept postavy
+2. Class
+3. Background
+4. Species
+5. Základní Ability Scores
+6. Zvýšení Ability Scores z Backgroundu
+7. Proficiencies
+8. Origin Feat
+9. Jazyky
+10. Počáteční vybavení
+11. Kouzla, pokud jsou dostupná
+12. Alignment
+13. Osobní údaje a historie
+14. Automatický výpočet statistik
+15. Kontrola požadavků
+16. Dokončení postavy
+
+Tento postup je návrh uživatelského rozhraní. Není nutné, aby hráč u stolu prováděl všechny kroky přesně v tomto pořadí, pokud výsledná postava splňuje oficiální pravidla D&D 2024.
+
+Aplikace musí rozlišovat mezi:
+
+- hodnotami zvolenými hráčem,
+- hodnotami poskytnutými Class,
+- hodnotami poskytnutými Backgroundem,
+- hodnotami poskytnutými Species,
+- hodnotami poskytnutými Featem,
+- hodnotami vypočítanými z jiných údajů,
+- hodnotami aktuálně upravenými během hry.

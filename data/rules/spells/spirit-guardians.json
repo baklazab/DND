@@ -1,0 +1,19 @@
+{
+  "id": "spirit-guardians",
+  "name": "Spirit Guardians",
+  "level": 3,
+  "school": "Conjuration",
+  "casting_time": "Action",
+  "range_area": "Self (15-foot radius)",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A holy symbol",
+  "duration": "Concentration, up to 10 minutes",
+  "description": "Spirits flit around you, damaging and slowing enemies in a 15-foot radius.",
+  "classes": [
+    "cleric"
+  ]
+}

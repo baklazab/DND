@@ -1,0 +1,9 @@
+[
+  {"id":"smiths-tools","name":"Smith's Tools","category":"artisan"},
+  {"id":"thieves-tools","name":"Thieves' Tools","category":"tool"},
+  {"id":"herbalism-kit","name":"Herbalism Kit","category":"tool"},
+  {"id":"musical-instrument","name":"Musical Instrument","category":"instrument"},
+  {"id":"navigator-tools","name":"Navigator's Tools","category":"tool"},
+  {"id":"tinkers-tools","name":"Tinker's Tools","category":"artisan"},
+  {"id":"weavers-tools","name":"Weaver's Tools","category":"artisan"}
+]

@@ -1,0 +1,88 @@
+{
+  "id": "srd-cc-5-2-1-index",
+  "source": "SRD_CC_v5.2.1.pdf",
+  "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+  "page_count": 364,
+  "sections": [
+    {
+      "id": "playing-the-game",
+      "title": "Playing the Game",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 5,
+      "page_end": 27
+    },
+    {
+      "id": "classes",
+      "title": "Classes",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 28,
+      "page_end": 82
+    },
+    {
+      "id": "character-origins",
+      "title": "Character Origins",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 83,
+      "page_end": 86
+    },
+    {
+      "id": "feats",
+      "title": "Feats",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 87,
+      "page_end": 88
+    },
+    {
+      "id": "equipment",
+      "title": "Equipment",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 89,
+      "page_end": 103
+    },
+    {
+      "id": "spells",
+      "title": "Spells",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 104,
+      "page_end": 175
+    },
+    {
+      "id": "rules-glossary",
+      "title": "Rules Glossary",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 176,
+      "page_end": 203
+    },
+    {
+      "id": "magic-items",
+      "title": "Magic Items",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 204,
+      "page_end": 253
+    },
+    {
+      "id": "monsters",
+      "title": "Monsters",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 254,
+      "page_end": 343
+    },
+    {
+      "id": "animals",
+      "title": "Animals",
+      "source": "SRD_CC_v5.2.1.pdf",
+      "source_sha256": "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87",
+      "page_start": 344,
+      "page_end": 364
+    }
+  ]
+}

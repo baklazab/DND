@@ -1,0 +1,9 @@
+{
+  "id": "artisan",
+  "name": "Artisan",
+  "allowed_ability_boosts": ["strength", "dexterity", "intelligence"],
+  "origin_feat": "Crafter",
+  "skills": ["investigation", "persuasion"],
+  "tool": "artisan's tools",
+  "equipment": ["artisan's tools", "leather apron", "32 GP"]
+}

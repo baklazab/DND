@@ -1,0 +1,13 @@
+{
+  "id": "wizard",
+  "name": "Wizard",
+  "hit_die": 6,
+  "primary_ability": ["intelligence"],
+  "saving_throws": ["intelligence", "wisdom"],
+  "weapon_mastery_count": 0,
+  "armor_training": [],
+  "spellcasting": "full",
+  "subclass_level": 3,
+  "proficiencies": ["daggers", "quarterstaffs", "light crossbows"],
+  "features": ["Arcane Recovery", "Spellcasting"]
+}

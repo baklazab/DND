@@ -1,0 +1,13 @@
+{
+  "id": "rogue",
+  "name": "Rogue",
+  "hit_die": 8,
+  "primary_ability": ["dexterity"],
+  "saving_throws": ["dexterity", "intelligence"],
+  "weapon_mastery_count": 2,
+  "armor_training": ["light"],
+  "spellcasting": "none",
+  "subclass_level": 3,
+  "proficiencies": ["light armor", "simple weapons", "hand crossbows", "longswords", "rapiers", "shortswords"],
+  "features": ["Expertise", "Sneak Attack", "Cunning Action", "Weapon Mastery"]
+}

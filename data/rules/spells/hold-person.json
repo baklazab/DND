@@ -1,0 +1,24 @@
+{
+  "id": "hold-person",
+  "name": "Hold Person",
+  "level": 2,
+  "school": "Enchantment",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A small, straight piece of iron",
+  "duration": "Concentration, up to 1 minute",
+  "description": "Choose a Humanoid. The target must succeed on a Wisdom saving throw or be Paralyzed.",
+  "classes": [
+    "bard",
+    "cleric",
+    "druid",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "srd-cc-5-2-1-general-rules",
+  "title": "General Rules",
+  "source": "SRD_CC_v5.2.1.pdf",
+  "source_pages": [5, 6],
+  "rules": [
+    {
+      "id": "exceptions-supersede-general-rules",
+      "title": "Exceptions Supersede General Rules",
+      "summary": "A specific rule from a feature, feat, weapon property, spell, magic item, or monster ability takes priority when it conflicts with a general rule.",
+      "source_page": 5
+    },
+    {
+      "id": "round-down",
+      "title": "Round Down",
+      "summary": "Round down fractions produced by multiplication or division unless a rule explicitly says to round up.",
+      "source_page": 5
+    },
+    {
+      "id": "rhythm-of-play",
+      "title": "Rhythm of Play",
+      "summary": "Play cycles through the GM describing the scene, players describing their characters' actions, and the GM narrating the results.",
+      "source_page": 5
+    },
+    {
+      "id": "six-abilities",
+      "title": "The Six Abilities",
+      "summary": "Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma measure a creature's physical and mental characteristics.",
+      "source_page": 5
+    },
+    {
+      "id": "d20-tests",
+      "title": "D20 Tests",
+      "summary": "When an uncertain action needs a roll, make an ability check, saving throw, or attack roll: roll 1d20, add relevant modifiers, and compare the total with the target number.",
+      "source_page": 6
+    },
+    {
+      "id": "advantage-disadvantage",
+      "title": "Advantage and Disadvantage",
+      "summary": "When a D20 Test has Advantage or Disadvantage, roll two d20s and use the higher or lower result respectively.",
+      "source_page": 6
+    }
+  ]
+}

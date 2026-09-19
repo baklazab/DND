@@ -1,0 +1,21 @@
+{
+  "id": "wall-of-fire",
+  "name": "Wall of Fire",
+  "level": 4,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "120 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A piece of phosphorus",
+  "duration": "Concentration, up to 1 minute",
+  "description": "You create a wall of fire on a solid surface within range dealing fire damage.",
+  "classes": [
+    "druid",
+    "sorcerer",
+    "wizard"
+  ]
+}

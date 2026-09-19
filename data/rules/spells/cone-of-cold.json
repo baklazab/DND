@@ -1,0 +1,20 @@
+{
+  "id": "cone-of-cold",
+  "name": "Cone of Cold",
+  "level": 5,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "Self (60-foot cone)",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A small crystal or glass cone",
+  "duration": "Instantaneous",
+  "description": "A blast of cold air erupts from your hands dealing cold damage in a 60-foot cone.",
+  "classes": [
+    "sorcerer",
+    "wizard"
+  ]
+}

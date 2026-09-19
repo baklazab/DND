@@ -1,0 +1,18 @@
+{
+  "id": "wish",
+  "name": "Wish",
+  "level": 9,
+  "school": "Conjuration",
+  "casting_time": "Action",
+  "range_area": "Self",
+  "components": [
+    "V"
+  ],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "Wish is the mightiest spell that a mortal creature can cast.",
+  "classes": [
+    "sorcerer",
+    "wizard"
+  ]
+}

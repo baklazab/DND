@@ -1,0 +1,1 @@
+{"id":"paladin","name":"Paladin","hit_die":10,"primary_ability":["strength","charisma"],"saving_throws":["wisdom","charisma"],"weapon_mastery_count":2,"subclass_level":3,"armor_training":["light","medium","heavy","shields"],"spellcasting":"half","proficiencies":["all armor","shields","simple weapons","martial weapons"],"features":["Lay On Hands","Spellcasting","Weapon Mastery"]}

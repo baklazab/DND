@@ -1,0 +1,48 @@
+{
+  "campaign": {
+    "id": "dnd-2024-character-sheet",
+    "title": "D&D 2024 — Tvorba postavy",
+    "act": "Oficiální zdroje",
+    "status": "authoritative"
+  },
+  "documents": [
+    {
+      "id": "character-creation",
+      "type": "rules",
+      "title": "Tvorba postavy podle D&D 2024",
+      "status": "authoritative",
+      "audience": "both",
+      "source": "pravidla/zdroje/tvorba-postavy-2024.txt",
+      "tags": ["rules", "character"]
+    },
+    {
+      "id": "srd-cc-5-2-1",
+      "type": "rules-reference",
+      "title": "System Reference Document 5.2.1",
+      "status": "authoritative",
+      "audience": "both",
+      "load": false,
+      "source": "SRD_CC_v5.2.1.pdf",
+      "tags": ["rules", "dnd-2024", "srd", "cc-by-4-0"]
+    },
+    {
+      "id": "world-source",
+      "type": "world",
+      "title": "Zdrojova specifikace sveta a kampane",
+      "status": "authoritative",
+      "audience": "both",
+      "source": "svet/zdroje/specifikace-sveta-a-kampane.txt",
+      "tags": ["world", "campaign"]
+    },
+    {
+      "id": "pamphlet",
+      "type": "handout",
+      "title": "Pamflet H",
+      "status": "authoritative",
+      "audience": "both",
+      "source": "handouty/zdroje/pamflet-h.html",
+      "tags": ["handout"]
+    }
+  ],
+  "scenes": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "sage",
+  "name": "Sage",
+  "allowed_ability_boosts": ["intelligence", "wisdom", "charisma"],
+  "origin_feat": "Magic Initiate (Wizard)",
+  "skills": ["arcana", "history"],
+  "tool": "calligrapher's supplies",
+  "equipment": ["quarterstaff", "book", "parchment", "50 GP"]
+}

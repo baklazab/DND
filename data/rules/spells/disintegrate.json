@@ -1,0 +1,20 @@
+{
+  "id": "disintegrate",
+  "name": "Disintegrate",
+  "level": 6,
+  "school": "Transmutation",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A lodestone and a pinch of dust",
+  "duration": "Instantaneous",
+  "description": "A thin green ray shoots from your pointing finger toward a target, dealing force damage.",
+  "classes": [
+    "sorcerer",
+    "wizard"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "bard": {"ability":"charisma","cantrips_level_1":2,"prepared_level_1":4,"prepared_level_2":5},
+  "cleric": {"ability":"wisdom","cantrips_level_1":3,"prepared_level_1":4,"prepared_level_2":5},
+  "druid": {"ability":"wisdom","cantrips_level_1":2,"prepared_level_1":4,"prepared_level_2":5},
+  "paladin": {"ability":"charisma","cantrips_level_1":0,"prepared_level_1":2,"prepared_level_2":3},
+  "ranger": {"ability":"wisdom","cantrips_level_1":0,"prepared_level_1":2,"prepared_level_2":3},
+  "sorcerer": {"ability":"charisma","cantrips_level_1":4,"known_level_1":2,"known_level_2":3},
+  "warlock": {"ability":"charisma","cantrips_level_1":2,"known_level_1":2,"known_level_2":3,"pact_slots_level_1":1,"pact_slots_level_2":2},
+  "wizard": {"ability":"intelligence","cantrips_level_1":3,"prepared_level_1":4,"prepared_level_2":5}
+}

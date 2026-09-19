@@ -1,0 +1,1 @@
+{"id":"monk","name":"Monk","hit_die":8,"primary_ability":["dexterity","wisdom"],"saving_throws":["strength","dexterity"],"weapon_mastery_count":2,"subclass_level":3,"armor_training":[],"spellcasting":"none","proficiencies":["simple weapons"],"features":["Martial Arts","Unarmored Defense","Weapon Mastery"]}

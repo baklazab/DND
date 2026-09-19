@@ -1,0 +1,1 @@
+{"id":"bard","name":"Bard","hit_die":8,"primary_ability":["charisma"],"saving_throws":["dexterity","charisma"],"weapon_mastery_count":2,"subclass_level":3,"armor_training":["light"],"spellcasting":"full","proficiencies":["light armor","simple weapons"],"features":["Bardic Inspiration","Spellcasting","Expertise","Weapon Mastery"]}

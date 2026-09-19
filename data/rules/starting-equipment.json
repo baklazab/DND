@@ -1,0 +1,443 @@
+{
+  "class_equipment": {
+    "barbarian": [
+      {
+        "groupId": "barbarian-main",
+        "label": "Hlavní zbraň barbara",
+        "source": "class",
+        "required": true,
+        "options": [
+          {"optionId": "greataxe", "label": "Greataxe", "items": [{"id": "greataxe", "name": "Greataxe", "category": "weapon", "quantity": 1}]},
+          {"optionId": "greatsword", "label": "Greatsword", "items": [{"id": "greatsword", "name": "Greatsword", "category": "weapon", "quantity": 1}]},
+          {"optionId": "battleaxe", "label": "Battleaxe", "items": [{"id": "battleaxe", "name": "Battleaxe", "category": "weapon", "quantity": 1}]}
+        ]
+      },
+      {
+        "groupId": "barbarian-second", "label": "Vedlejší zbraň barbara", "source": "class", "required": true,
+        "options": [
+          {"optionId": "two-handaxes", "label": "2× Handaxe", "items": [{"id": "handaxe", "name": "Handaxe", "category": "weapon", "quantity": 2}]},
+          {"optionId": "mace", "label": "Mace", "items": [{"id": "mace", "name": "Mace", "category": "weapon", "quantity": 1}]}
+        ]
+      },
+      {
+        "groupId": "barbarian-pack", "label": "Průzkumnická výbava barbara", "source": "class", "required": true,
+        "options": [
+          {"optionId": "barbarian-gear", "label": "Explorer's Pack a 4× Javelin", "items": [
+            {"id": "javelin", "name": "Javelin", "category": "weapon", "quantity": 4},
+            {"id": "explorers-pack", "name": "Explorer's Pack", "category": "item", "quantity": 1}
+          ]}
+        ]
+      }
+    ],
+    "bard": [
+      {
+        "groupId": "bard-weapon", "label": "Zbraň barda", "source": "class", "required": true,
+        "options": [
+          {"optionId": "rapier", "label": "Rapier", "items": [{"id": "rapier", "name": "Rapier", "category": "weapon", "quantity": 1}]},
+          {"optionId": "shortsword", "label": "Shortsword", "items": [{"id": "shortsword", "name": "Shortsword", "category": "weapon", "quantity": 1}]},
+          {"optionId": "dagger", "label": "Dagger", "items": [{"id": "dagger", "name": "Dagger", "category": "weapon", "quantity": 1}]}
+        ]
+      },
+      {
+        "groupId": "bard-pack", "label": "Hudební a zbrojní výbava", "source": "class", "required": true,
+        "options": [
+          {"optionId": "bard-kit", "label": "Lute, Entertainer's Pack, Leather Armor a Dagger", "items": [
+            {"id": "lute", "name": "Lute", "category": "item", "quantity": 1},
+            {"id": "entertainers-pack", "name": "Entertainer's Pack", "category": "item", "quantity": 1},
+            {"id": "leather", "name": "Leather Armor", "category": "armor", "quantity": 1},
+            {"id": "dagger", "name": "Dagger", "category": "weapon", "quantity": 1}
+          ]}
+        ]
+      }
+    ],
+    "cleric": [
+      {
+        "groupId": "cleric-weapon", "label": "Zbraň klerika", "source": "class", "required": true,
+        "options": [
+          {"optionId": "mace", "label": "Mace", "items": [{"id": "mace", "name": "Mace", "category": "weapon", "quantity": 1}]},
+          {"optionId": "warhammer", "label": "Warhammer", "items": [{"id": "warhammer", "name": "Warhammer", "category": "weapon", "quantity": 1}]}
+        ]
+      },
+      {
+        "groupId": "cleric-armor", "label": "Zbroj klerika", "source": "class", "required": true,
+        "options": [
+          {"optionId": "chain-shirt", "label": "Chain Shirt", "items": [{"id": "chain-shirt", "name": "Chain Shirt", "category": "armor", "quantity": 1}]},
+          {"optionId": "scale-mail", "label": "Scale Mail", "items": [{"id": "scale-mail", "name": "Scale Mail", "category": "armor", "quantity": 1}]},
+          {"optionId": "leather", "label": "Leather Armor", "items": [{"id": "leather", "name": "Leather Armor", "category": "armor", "quantity": 1}]}
+        ]
+      },
+      {
+        "groupId": "cleric-secondary", "label": "Střelná výbava a zásoby", "source": "class", "required": true,
+        "options": [
+          {"optionId": "crossbow-set", "label": "Light Crossbow, 20 Bolts, Shield, Holy Symbol, Priest's Pack", "items": [
+            {"id": "light-crossbow", "name": "Light Crossbow", "category": "weapon", "quantity": 1},
+            {"id": "bolts", "name": "Crossbow Bolts (20)", "category": "item", "quantity": 20},
+            {"id": "shield", "name": "Shield", "category": "armor", "quantity": 1},
+            {"id": "holy-symbol", "name": "Holy Symbol", "category": "item", "quantity": 1},
+            {"id": "priests-pack", "name": "Priest's Pack", "category": "item", "quantity": 1}
+          ]}
+        ]
+      }
+    ],
+    "druid": [
+      {
+        "groupId": "druid-kit", "label": "Výbava druida", "source": "class", "required": true,
+        "options": [
+          {"optionId": "scimitar-kit", "label": "Scimitar, Shield, Leather Armor, Druidic Focus, Explorer's Pack", "items": [
+            {"id": "scimitar", "name": "Scimitar", "category": "weapon", "quantity": 1},
+            {"id": "shield", "name": "Wooden Shield", "category": "armor", "quantity": 1},
+            {"id": "leather", "name": "Leather Armor", "category": "armor", "quantity": 1},
+            {"id": "druidic-focus", "name": "Druidic Focus", "category": "item", "quantity": 1},
+            {"id": "explorers-pack", "name": "Explorer's Pack", "category": "item", "quantity": 1}
+          ]}
+        ]
+      }
+    ],
+    "fighter": [
+      {
+        "groupId": "fighter-armor", "label": "Zbroj bojovníka", "source": "class", "required": true,
+        "options": [
+          {"optionId": "chain-mail", "label": "Chain Mail", "items": [{"id": "chain-mail", "name": "Chain Mail", "category": "armor", "quantity": 1}]},
+          {"optionId": "leather-bow", "label": "Leather Armor, Longbow a 20 šípů", "items": [
+            {"id": "leather", "name": "Leather Armor", "category": "armor", "quantity": 1},
+            {"id": "longbow", "name": "Longbow", "category": "weapon", "quantity": 1},
+            {"id": "arrows", "name": "Arrows (20)", "category": "item", "quantity": 20}
+          ]}
+        ]
+      },
+      {
+        "groupId": "fighter-weapons", "label": "Bojová výzbroj", "source": "class", "required": true,
+        "options": [
+          {"optionId": "sword-shield", "label": "Longsword a Shield", "items": [
+            {"id": "longsword", "name": "Longsword", "category": "weapon", "quantity": 1},
+            {"id": "shield", "name": "Shield", "category": "armor", "quantity": 1}
+          ]},
+          {"optionId": "greatsword-axe", "label": "Greatsword a Handaxe", "items": [
+            {"id": "greatsword", "name": "Greatsword", "category": "weapon", "quantity": 1},
+            {"id": "handaxe", "name": "Handaxe", "category": "weapon", "quantity": 1}
+          ]}
+        ]
+      },
+      {
+        "groupId": "fighter-pack", "label": "Průzkumnické vybavení", "source": "class", "required": true,
+        "options": [
+          {"optionId": "dungeoneer-pack", "label": "Dungeoneer's Pack a Light Crossbow (20 Bolts)", "items": [
+            {"id": "dungeoneers-pack", "name": "Dungeoneer's Pack", "category": "item", "quantity": 1},
+            {"id": "light-crossbow", "name": "Light Crossbow", "category": "weapon", "quantity": 1},
+            {"id": "bolts", "name": "Crossbow Bolts (20)", "category": "item", "quantity": 20}
+          ]}
+        ]
+      }
+    ],
+    "monk": [
+      {
+        "groupId": "monk-weapon", "label": "Zbraň mnicha", "source": "class", "required": true,
+        "options": [
+          {"optionId": "spear", "label": "Spear", "items": [{"id": "spear", "name": "Spear", "category": "weapon", "quantity": 1}]},
+          {"optionId": "shortsword", "label": "Shortsword", "items": [{"id": "shortsword", "name": "Shortsword", "category": "weapon", "quantity": 1}]}
+        ]
+      },
+      {
+        "groupId": "monk-pack", "label": "Vrhací zbraně a balíček", "source": "class", "required": true,
+        "options": [
+          {"optionId": "darts-pack", "label": "10× Dart a Explorer's Pack", "items": [
+            {"id": "dart", "name": "Dart", "category": "weapon", "quantity": 10},
+            {"id": "explorers-pack", "name": "Explorer's Pack", "category": "item", "quantity": 1}
+          ]}
+        ]
+      }
+    ],
+    "paladin": [
+      {
+        "groupId": "paladin-weapons", "label": "Výzbroj paladina", "source": "class", "required": true,
+        "options": [
+          {"optionId": "longsword-shield", "label": "Longsword, Shield, Chain Mail", "items": [
+            {"id": "longsword", "name": "Longsword", "category": "weapon", "quantity": 1},
+            {"id": "shield", "name": "Shield", "category": "armor", "quantity": 1},
+            {"id": "chain-mail", "name": "Chain Mail", "category": "armor", "quantity": 1}
+          ]},
+          {"optionId": "greatsword-mail", "label": "Greatsword, Chain Mail", "items": [
+            {"id": "greatsword", "name": "Greatsword", "category": "weapon", "quantity": 1},
+            {"id": "chain-mail", "name": "Chain Mail", "category": "armor", "quantity": 1}
+          ]}
+        ]
+      },
+      {
+        "groupId": "paladin-pack", "label": "Svatý symbol a balíček", "source": "class", "required": true,
+        "options": [
+          {"optionId": "paladin-pack-javelins", "label": "5× Javelin, Holy Symbol, Priest's Pack", "items": [
+            {"id": "javelin", "name": "Javelin", "category": "weapon", "quantity": 5},
+            {"id": "holy-symbol", "name": "Holy Symbol", "category": "item", "quantity": 1},
+            {"id": "priests-pack", "name": "Priest's Pack", "category": "item", "quantity": 1}
+          ]}
+        ]
+      }
+    ],
+    "ranger": [
+      {
+        "groupId": "ranger-gear", "label": "Výbava hraničáře", "source": "class", "required": true,
+        "options": [
+          {"optionId": "ranger-default", "label": "Studded Leather, 2× Shortsword, Longbow, 20 Arrows, Dungeoneer's Pack", "items": [
+            {"id": "studded-leather", "name": "Studded Leather", "category": "armor", "quantity": 1},
+            {"id": "shortsword", "name": "Shortsword", "category": "weapon", "quantity": 2},
+            {"id": "longbow", "name": "Longbow", "category": "weapon", "quantity": 1},
+            {"id": "arrows", "name": "Arrows (20)", "category": "item", "quantity": 20},
+            {"id": "dungeoneers-pack", "name": "Dungeoneer's Pack", "category": "item", "quantity": 1}
+          ]}
+        ]
+      }
+    ],
+    "rogue": [
+      {
+        "groupId": "rogue-weapon", "label": "Hlavní zbraň ropucha / zloděje", "source": "class", "required": true,
+        "options": [
+          {"optionId": "rapier", "label": "Rapier", "items": [{"id": "rapier", "name": "Rapier", "category": "weapon", "quantity": 1}]},
+          {"optionId": "shortsword", "label": "Shortsword", "items": [{"id": "shortsword", "name": "Shortsword", "category": "weapon", "quantity": 1}]}
+        ]
+      },
+      {
+        "groupId": "rogue-gear", "label": "Střelná zbraň, zlodějské náčiní a balíček", "source": "class", "required": true,
+        "options": [
+          {"optionId": "shortbow-tools", "label": "Shortbow (20 Arrows), Leather Armor, Thieves' Tools, Burglar's Pack, 2× Dagger", "items": [
+            {"id": "shortbow", "name": "Shortbow", "category": "weapon", "quantity": 1},
+            {"id": "arrows", "name": "Arrows (20)", "category": "item", "quantity": 20},
+            {"id": "leather", "name": "Leather Armor", "category": "armor", "quantity": 1},
+            {"id": "thieves-tools", "name": "Thieves' Tools", "category": "tool", "quantity": 1},
+            {"id": "burglars-pack", "name": "Burglar's Pack", "category": "item", "quantity": 1},
+            {"id": "dagger", "name": "Dagger", "category": "weapon", "quantity": 2}
+          ]}
+        ]
+      }
+    ],
+    "sorcerer": [
+      {
+        "groupId": "sorcerer-gear", "label": "Výbava čaroděje", "source": "class", "required": true,
+        "options": [
+          {"optionId": "spear-focus", "label": "Spear, Arcane Focus, 2× Dagger, Explorer's Pack", "items": [
+            {"id": "spear", "name": "Spear", "category": "weapon", "quantity": 1},
+            {"id": "arcane-focus", "name": "Arcane Focus", "category": "item", "quantity": 1},
+            {"id": "dagger", "name": "Dagger", "category": "weapon", "quantity": 2},
+            {"id": "explorers-pack", "name": "Explorer's Pack", "category": "item", "quantity": 1}
+          ]}
+        ]
+      }
+    ],
+    "warlock": [
+      {
+        "groupId": "warlock-gear", "label": "Výbava černokněžníka", "source": "class", "required": true,
+        "options": [
+          {"optionId": "crossbow-focus", "label": "Light Crossbow (20 Bolts), Leather Armor, Arcane Focus, Scholar's Pack, 2× Dagger", "items": [
+            {"id": "light-crossbow", "name": "Light Crossbow", "category": "weapon", "quantity": 1},
+            {"id": "bolts", "name": "Crossbow Bolts (20)", "category": "item", "quantity": 20},
+            {"id": "leather", "name": "Leather Armor", "category": "armor", "quantity": 1},
+            {"id": "arcane-focus", "name": "Arcane Focus", "category": "item", "quantity": 1},
+            {"id": "scholars-pack", "name": "Scholar's Pack", "category": "item", "quantity": 1},
+            {"id": "dagger", "name": "Dagger", "category": "weapon", "quantity": 2}
+          ]}
+        ]
+      }
+    ],
+    "wizard": [
+      {
+        "groupId": "wizard-gear", "label": "Výbava kouzelníka", "source": "class", "required": true,
+        "options": [
+          {"optionId": "wizard-default", "label": "Quarterstaff, Spellbook, Arcane Focus, Scholar's Pack", "items": [
+            {"id": "quarterstaff", "name": "Quarterstaff", "category": "weapon", "quantity": 1},
+            {"id": "spellbook", "name": "Spellbook", "category": "item", "quantity": 1},
+            {"id": "arcane-focus", "name": "Arcane Focus", "category": "item", "quantity": 1},
+            {"id": "scholars-pack", "name": "Scholar's Pack", "category": "item", "quantity": 1}
+          ]}
+        ]
+      }
+    ]
+  },
+  "background_equipment": {
+    "acolyte": [
+      {
+        "groupId": "acolyte-gear", "label": "Původní výbava: Acolyte", "source": "background", "required": true,
+        "options": [{"optionId": "acolyte-std", "label": "Holy Symbol, Prayer Book, Vestments, 15 GP", "items": [
+          {"id": "holy-symbol", "name": "Holy Symbol", "category": "item", "quantity": 1},
+          {"id": "prayer-book", "name": "Prayer Book", "category": "item", "quantity": 1},
+          {"id": "vestments", "name": "Vestments", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 15}
+        ]}]
+      }
+    ],
+    "artisan": [
+      {
+        "groupId": "artisan-gear", "label": "Původní výbava: Artisan", "source": "background", "required": true,
+        "options": [{"optionId": "artisan-std", "label": "Artisan's Tools, Traveler's Clothes, 25 GP", "items": [
+          {"id": "artisans-tools", "name": "Artisan's Tools", "category": "tool", "quantity": 1},
+          {"id": "travelers-clothes", "name": "Traveler's Clothes", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 25}
+        ]}]
+      }
+    ],
+    "charlatan": [
+      {
+        "groupId": "charlatan-gear", "label": "Původní výbava: Charlatan", "source": "background", "required": true,
+        "options": [{"optionId": "charlatan-std", "label": "Costume, Fine Clothes, Disguise Kit, 15 GP", "items": [
+          {"id": "costume", "name": "Costume", "category": "item", "quantity": 1},
+          {"id": "fine-clothes", "name": "Fine Clothes", "category": "item", "quantity": 1},
+          {"id": "disguise-kit", "name": "Disguise Kit", "category": "tool", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 15}
+        ]}]
+      }
+    ],
+    "criminal": [
+      {
+        "groupId": "criminal-gear", "label": "Původní výbava: Criminal", "source": "background", "required": true,
+        "options": [{"optionId": "criminal-std", "label": "Crowbar, Dark Clothes, Thieves' Tools, 16 GP", "items": [
+          {"id": "crowbar", "name": "Crowbar", "category": "item", "quantity": 1},
+          {"id": "dark-clothes", "name": "Dark Clothes", "category": "item", "quantity": 1},
+          {"id": "thieves-tools", "name": "Thieves' Tools", "category": "tool", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 16}
+        ]}]
+      }
+    ],
+    "cultist": [
+      {
+        "groupId": "cultist-gear", "label": "Původní výbava: Cultist", "source": "background", "required": true,
+        "options": [{"optionId": "cultist-std", "label": "Disguise Kit, Costume, Holy Symbol, 15 GP", "items": [
+          {"id": "disguise-kit", "name": "Disguise Kit", "category": "tool", "quantity": 1},
+          {"id": "costume", "name": "Costume", "category": "item", "quantity": 1},
+          {"id": "holy-symbol", "name": "Holy Symbol", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 15}
+        ]}]
+      }
+    ],
+    "entertainer": [
+      {
+        "groupId": "entertainer-gear", "label": "Původní výbava: Entertainer", "source": "background", "required": true,
+        "options": [{"optionId": "entertainer-std", "label": "Musical Instrument, Costume, 18 GP", "items": [
+          {"id": "musical-instrument", "name": "Musical Instrument", "category": "item", "quantity": 1},
+          {"id": "costume", "name": "Costume", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 18}
+        ]}]
+      }
+    ],
+    "farmer": [
+      {
+        "groupId": "farmer-gear", "label": "Původní výbava: Farmer", "source": "background", "required": true,
+        "options": [{"optionId": "farmer-std", "label": "Sickle, Iron Pot, Shovel, Traveler's Clothes, 23 GP", "items": [
+          {"id": "sickle", "name": "Sickle", "category": "weapon", "quantity": 1},
+          {"id": "iron-pot", "name": "Iron Pot", "category": "item", "quantity": 1},
+          {"id": "shovel", "name": "Shovel", "category": "item", "quantity": 1},
+          {"id": "travelers-clothes", "name": "Traveler's Clothes", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 23}
+        ]}]
+      }
+    ],
+    "guard": [
+      {
+        "groupId": "guard-gear", "label": "Původní výbava: Guard", "source": "background", "required": true,
+        "options": [{"optionId": "guard-std", "label": "Spear, Hooded Lantern, Traveler's Clothes, 12 GP", "items": [
+          {"id": "spear", "name": "Spear", "category": "weapon", "quantity": 1},
+          {"id": "lantern", "name": "Hooded Lantern", "category": "item", "quantity": 1},
+          {"id": "travelers-clothes", "name": "Traveler's Clothes", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 12}
+        ]}]
+      }
+    ],
+    "guide": [
+      {
+        "groupId": "guide-gear", "label": "Původní výbava: Guide", "source": "background", "required": true,
+        "options": [{"optionId": "guide-std", "label": "Map Case, Traveler's Clothes, Survival Gear, 16 GP", "items": [
+          {"id": "map-case", "name": "Map Case", "category": "item", "quantity": 1},
+          {"id": "travelers-clothes", "name": "Traveler's Clothes", "category": "item", "quantity": 1},
+          {"id": "survival-gear", "name": "Survival Gear", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 16}
+        ]}]
+      }
+    ],
+    "hermit": [
+      {
+        "groupId": "hermit-gear", "label": "Původní výbava: Hermit", "source": "background", "required": true,
+        "options": [{"optionId": "hermit-std", "label": "Herbalism Kit, Scroll Case, Winter Clothes, 16 GP", "items": [
+          {"id": "herbalism-kit", "name": "Herbalism Kit", "category": "tool", "quantity": 1},
+          {"id": "scroll-case", "name": "Scroll Case", "category": "item", "quantity": 1},
+          {"id": "winter-clothes", "name": "Winter Clothes", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 16}
+        ]}]
+      }
+    ],
+    "merchant": [
+      {
+        "groupId": "merchant-gear", "label": "Původní výbava: Merchant", "source": "background", "required": true,
+        "options": [{"optionId": "merchant-std", "label": "Fine Clothes, Letter of Introduction, 22 GP", "items": [
+          {"id": "fine-clothes", "name": "Fine Clothes", "category": "item", "quantity": 1},
+          {"id": "letter", "name": "Letter of Introduction", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 22}
+        ]}]
+      }
+    ],
+    "noble": [
+      {
+        "groupId": "noble-gear", "label": "Původní výbava: Noble", "source": "background", "required": true,
+        "options": [{"optionId": "noble-std", "label": "Fine Clothes, Signet Ring, Scroll of Pedigree, 25 GP", "items": [
+          {"id": "fine-clothes", "name": "Fine Clothes", "category": "item", "quantity": 1},
+          {"id": "signet-ring", "name": "Signet Ring", "category": "item", "quantity": 1},
+          {"id": "scroll-pedigree", "name": "Scroll of Pedigree", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 25}
+        ]}]
+      }
+    ],
+    "sage": [
+      {
+        "groupId": "sage-gear", "label": "Původní výbava: Sage", "source": "background", "required": true,
+        "options": [{"optionId": "sage-std", "label": "Book of Lore, Ink, Quill, Small Knife, 11 GP", "items": [
+          {"id": "book-lore", "name": "Book of Lore", "category": "item", "quantity": 1},
+          {"id": "ink-quill", "name": "Ink and Quill", "category": "item", "quantity": 1},
+          {"id": "small-knife", "name": "Small Knife", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 11}
+        ]}]
+      }
+    ],
+    "sailor": [
+      {
+        "groupId": "sailor-gear", "label": "Původní výbava: Sailor", "source": "background", "required": true,
+        "options": [{"optionId": "sailor-std", "label": "Dagger, 50ft Silk Rope, Lucky Charm, Traveler's Clothes, 10 GP", "items": [
+          {"id": "dagger", "name": "Dagger", "category": "weapon", "quantity": 1},
+          {"id": "silk-rope", "name": "50ft Silk Rope", "category": "item", "quantity": 1},
+          {"id": "lucky-charm", "name": "Lucky Charm", "category": "item", "quantity": 1},
+          {"id": "travelers-clothes", "name": "Traveler's Clothes", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 10}
+        ]}]
+      }
+    ],
+    "scribe": [
+      {
+        "groupId": "scribe-gear", "label": "Původní výbava: Scribe", "source": "background", "required": true,
+        "options": [{"optionId": "scribe-std", "label": "Calligraphy Supplies, Lamp, 3 Flasks of Oil, 18 GP", "items": [
+          {"id": "calligraphy-supplies", "name": "Calligraphy Supplies", "category": "tool", "quantity": 1},
+          {"id": "lamp", "name": "Lamp", "category": "item", "quantity": 1},
+          {"id": "oil-flasks", "name": "Flasks of Oil (3)", "category": "item", "quantity": 3},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 18}
+        ]}]
+      }
+    ],
+    "soldier": [
+      {
+        "groupId": "soldier-gear", "label": "Původní výbava: Soldier", "source": "background", "required": true,
+        "options": [{"optionId": "soldier-std", "label": "Spear, Shield, Traveler's Clothes, 50 GP", "items": [
+          {"id": "spear", "name": "Spear", "category": "weapon", "quantity": 1},
+          {"id": "shield", "name": "Shield", "category": "armor", "quantity": 1},
+          {"id": "travelers-clothes", "name": "Traveler's Clothes", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 50}
+        ]}]
+      }
+    ],
+    "wayfarer": [
+      {
+        "groupId": "wayfarer-gear", "label": "Původní výbava: Wayfarer", "source": "background", "required": true,
+        "options": [{"optionId": "wayfarer-std", "label": "Dagger, Thieves' Tools, Map, Traveler's Clothes, 16 GP", "items": [
+          {"id": "dagger", "name": "Dagger", "category": "weapon", "quantity": 1},
+          {"id": "thieves-tools", "name": "Thieves' Tools", "category": "tool", "quantity": 1},
+          {"id": "map", "name": "Map", "category": "item", "quantity": 1},
+          {"id": "travelers-clothes", "name": "Traveler's Clothes", "category": "item", "quantity": 1},
+          {"id": "gp", "name": "GP", "category": "currency", "quantity": 16}
+        ]}]
+      }
+    ]
+  }
+}

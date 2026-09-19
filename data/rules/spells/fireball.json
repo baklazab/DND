@@ -1,0 +1,20 @@
+{
+  "id": "fireball",
+  "name": "Fireball",
+  "level": 3,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "150 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A tiny ball of bat guano and sulfur",
+  "duration": "Instantaneous",
+  "description": "A bright streak flashes to a point and blossoms with a low roar into an explosion of flame.",
+  "classes": [
+    "sorcerer",
+    "wizard"
+  ]
+}

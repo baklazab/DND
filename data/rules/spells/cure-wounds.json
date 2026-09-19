@@ -1,0 +1,13 @@
+{
+  "id": "cure-wounds",
+  "name": "Cure Wounds",
+  "level": 1,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "Touch",
+  "components": ["V", "S"],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "A creature you touch regains hit points.",
+  "classes": ["cleric", "bard", "druid", "paladin", "ranger"]
+}

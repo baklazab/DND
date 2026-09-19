@@ -1,0 +1,22 @@
+{
+  "id": "shatter",
+  "name": "Shatter",
+  "level": 2,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A chip of mica",
+  "duration": "Instantaneous",
+  "description": "A sudden loud ringing noise erupts, dealing thunder damage in a 10-foot-radius sphere.",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

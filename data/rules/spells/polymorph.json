@@ -1,0 +1,22 @@
+{
+  "id": "polymorph",
+  "name": "Polymorph",
+  "level": 4,
+  "school": "Transmutation",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A caterpillar cocoon",
+  "duration": "Concentration, up to 1 hour",
+  "description": "This spell transforms a creature that you can see within range into a new beast form.",
+  "classes": [
+    "bard",
+    "druid",
+    "sorcerer",
+    "wizard"
+  ]
+}

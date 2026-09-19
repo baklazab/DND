@@ -1,0 +1,20 @@
+{
+  "id": "aid",
+  "name": "Aid",
+  "level": 2,
+  "school": "Abjuration",
+  "casting_time": "Action",
+  "range_area": "30 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A tiny strip of white cloth",
+  "duration": "8 hours",
+  "description": "Your spell bolsters your allies with toughness and resolve.",
+  "classes": [
+    "cleric",
+    "paladin"
+  ]
+}

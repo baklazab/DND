@@ -1,0 +1,19 @@
+{
+  "id": "flame-strike",
+  "name": "Flame Strike",
+  "level": 5,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "Pinch of sulfur",
+  "duration": "Instantaneous",
+  "description": "A vertical column of divine fire roars down from the heavens in a 10-foot radius.",
+  "classes": [
+    "cleric"
+  ]
+}

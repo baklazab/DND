@@ -1,0 +1,19 @@
+{
+  "id": "meteor-swarm",
+  "name": "Meteor Swarm",
+  "level": 9,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "1 mile",
+  "components": [
+    "V",
+    "S"
+  ],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "Blazing orbs of fire plummet to the ground at four different points dealing massive damage.",
+  "classes": [
+    "sorcerer",
+    "wizard"
+  ]
+}

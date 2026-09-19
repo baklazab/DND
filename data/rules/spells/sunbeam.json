@@ -1,0 +1,21 @@
+{
+  "id": "sunbeam",
+  "name": "Sunbeam",
+  "level": 6,
+  "school": "Evocation",
+  "casting_time": "Action",
+  "range_area": "Self (60-foot line)",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "A magnifying glass",
+  "duration": "Concentration, up to 1 minute",
+  "description": "A beam of brilliant light flashes out from your hand in a 5-foot-wide, 60-foot-long line.",
+  "classes": [
+    "druid",
+    "sorcerer",
+    "wizard"
+  ]
+}

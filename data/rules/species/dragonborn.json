@@ -1,0 +1,29 @@
+{
+  "id": "dragonborn",
+  "name": "Dragonborn",
+  "size": "Medium",
+  "speed": 30,
+  "darkvision": true,
+  "traits": ["Draconic Ancestry", "Breath Weapon", "Damage Resistance"],
+  "options": [
+    {
+      "id": "draconic-ancestry",
+      "name": "Draconic Ancestry",
+      "type": "choice",
+      "count": 1,
+      "description": "Vyber svůj dračí původ.",
+      "choices": [
+        {"id": "black", "name": "Černý drak (Acid)"},
+        {"id": "blue", "name": "Modrý drak (Lightning)"},
+        {"id": "brass", "name": "Mosazný drak (Fire)"},
+        {"id": "bronze", "name": "Bronzový drak (Lightning)"},
+        {"id": "copper", "name": "Měděný drak (Acid)"},
+        {"id": "gold", "name": "Zlatý drak (Fire)"},
+        {"id": "green", "name": "Zelený drak (Poison)"},
+        {"id": "red", "name": "Červený drak (Fire)"},
+        {"id": "silver", "name": "Stříbrný drak (Cold)"},
+        {"id": "white", "name": "Bílý drak (Cold)"}
+      ]
+    }
+  ]
+}

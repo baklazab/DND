@@ -1,0 +1,40 @@
+{
+  "id": "srd-cc-5-2-1-gameplay-tips",
+  "title": "Gameplay Tips",
+  "source": "SRD_CC_v5.2.1.pdf",
+  "disclaimer": "These are practical prompts derived from the cited SRD rules. They do not add or override rules.",
+  "tips": [
+    {
+      "id": "state-an-intent",
+      "category": "social-interaction",
+      "title": "State a clear intent",
+      "advice": "Describe what your character tries to do and how they approach it before asking for a roll.",
+      "rule_ids": ["rhythm-of-play", "d20-tests"],
+      "source_pages": [5, 6]
+    },
+    {
+      "id": "use-the-right-strength",
+      "category": "problem-solving",
+      "title": "Lead with a relevant strength",
+      "advice": "Frame an approach around the ability that best matches the action: force, agility, endurance, reasoning, awareness, or presence.",
+      "rule_ids": ["six-abilities"],
+      "source_pages": [5]
+    },
+    {
+      "id": "treat-rolls-as-resolution",
+      "category": "table-play",
+      "title": "Let the roll resolve uncertainty",
+      "advice": "Roll when the GM calls for a D20 Test, then use the result to move the scene forward rather than repeat the same attempt unchanged.",
+      "rule_ids": ["rhythm-of-play", "d20-tests"],
+      "source_pages": [5, 6]
+    },
+    {
+      "id": "read-specific-rules",
+      "category": "rules-use",
+      "title": "Check the specific feature",
+      "advice": "When a feature or spell seems to alter a baseline rule, read its wording because a specific exception can take precedence.",
+      "rule_ids": ["exceptions-supersede-general-rules"],
+      "source_pages": [5]
+    }
+  ]
+}

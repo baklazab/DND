@@ -1,0 +1,21 @@
+{
+  "id": "greater-restoration",
+  "name": "Greater Restoration",
+  "level": 5,
+  "school": "Abjuration",
+  "casting_time": "Action",
+  "range_area": "Touch",
+  "components": [
+    "V",
+    "S",
+    "M"
+  ],
+  "material_cost": "Diamond dust worth 100 GP, consumed by the spell",
+  "duration": "Instantaneous",
+  "description": "You imbue a creature with positive energy to undo a debilitating effect or condition.",
+  "classes": [
+    "bard",
+    "cleric",
+    "druid"
+  ]
+}

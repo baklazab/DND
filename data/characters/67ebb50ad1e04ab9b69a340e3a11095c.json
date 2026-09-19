@@ -1,0 +1,171 @@
+{
+  "id": "67ebb50ad1e04ab9b69a340e3a11095c",
+  "name": "Kokot pičus",
+  "species_id": "goliath",
+  "class_id": "ranger",
+  "background_id": "guard",
+  "level": 1,
+  "base_ability_scores": {
+    "strength": 15,
+    "dexterity": 14,
+    "constitution": 13,
+    "intelligence": 12,
+    "wisdom": 10,
+    "charisma": 8
+  },
+  "background_ability_boosts": {
+    "wisdom": 1,
+    "intelligence": 2
+  },
+  "final_ability_scores": {
+    "strength": 15,
+    "dexterity": 14,
+    "constitution": 13,
+    "intelligence": 14,
+    "wisdom": 11,
+    "charisma": 8
+  },
+  "max_hp": 11,
+  "armor_class": 16,
+  "proficiency_bonus": 2,
+  "modifiers": {
+    "strength": 2,
+    "dexterity": 2,
+    "constitution": 1,
+    "intelligence": 2,
+    "wisdom": 0,
+    "charisma": -1
+  },
+  "initiative": 4,
+  "passive_perception": 12,
+  "inventory": [
+    {
+      "id": "d5c068f3",
+      "name": "Studded Leather",
+      "category": "armor",
+      "quantity": 1,
+      "notes": "Starting Equipment (Výbava hraničáře)"
+    },
+    {
+      "id": "13daafa0",
+      "name": "Shortsword",
+      "category": "weapon",
+      "quantity": 2,
+      "notes": "Starting Equipment (Výbava hraničáře)"
+    },
+    {
+      "id": "2aa591d0",
+      "name": "Longbow",
+      "category": "weapon",
+      "quantity": 1,
+      "notes": "Starting Equipment (Výbava hraničáře)"
+    },
+    {
+      "id": "88f79fd0",
+      "name": "Arrows (20)",
+      "category": "item",
+      "quantity": 20,
+      "notes": "Starting Equipment (Výbava hraničáře)"
+    },
+    {
+      "id": "c4b5508a",
+      "name": "Dungeoneer's Pack",
+      "category": "item",
+      "quantity": 1,
+      "notes": "Starting Equipment (Výbava hraničáře)"
+    },
+    {
+      "id": "3968615b",
+      "name": "Spear",
+      "category": "weapon",
+      "quantity": 1,
+      "notes": "Background (Guard)"
+    },
+    {
+      "id": "09ed4ae7",
+      "name": "Hooded Lantern",
+      "category": "item",
+      "quantity": 1,
+      "notes": "Background (Guard)"
+    },
+    {
+      "id": "e47b47cf",
+      "name": "Traveler's Clothes",
+      "category": "item",
+      "quantity": 1,
+      "notes": "Background (Guard)"
+    },
+    {
+      "id": "6d127827",
+      "name": "GP",
+      "category": "currency",
+      "quantity": 12,
+      "notes": "Background (Guard)"
+    }
+  ],
+  "details": {
+    "name": "Kokot pičus",
+    "alignment": "Chaotic Good",
+    "description": ""
+  },
+  "creation_state": {
+    "class_id": "ranger",
+    "species_id": "goliath",
+    "background_id": "guard",
+    "level": 1,
+    "ability_method": "point_buy",
+    "base_scores": {
+      "strength": 15,
+      "dexterity": 14,
+      "constitution": 13,
+      "intelligence": 12,
+      "wisdom": 10,
+      "charisma": 8
+    },
+    "background_boosts": {
+      "wisdom": 1,
+      "intelligence": 2
+    },
+    "species_choices": {},
+    "equipment_choices": {
+      "guard-gear": "guard-std",
+      "ranger-gear": "ranger-default"
+    },
+    "rolled_scores": [],
+    "selected_masteries": [
+      "push",
+      "cleave",
+      "sap"
+    ],
+    "selected_weapons": [],
+    "starting_equipment_choices": {},
+    "selected_spells": [
+      "cure-wounds"
+    ],
+    "selected_skills": [
+      "perception",
+      "survival",
+      "athletics"
+    ],
+    "armor": {
+      "base_ac": 16,
+      "dexterity_cap": 0,
+      "category": "heavy"
+    },
+    "shield": false,
+    "proficient_perception": false,
+    "subclass_id": null,
+    "selected_languages": [
+      "Common",
+      "Common Sign Language",
+      "Gnomish"
+    ],
+    "general_feats": [],
+    "details": {
+      "name": "Kokot pičus",
+      "alignment": "Chaotic Good",
+      "description": ""
+    }
+  },
+  "updated_at": "2026-09-11T22:15:35.015133Z"
+}

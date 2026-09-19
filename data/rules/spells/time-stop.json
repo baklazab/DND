@@ -1,0 +1,18 @@
+{
+  "id": "time-stop",
+  "name": "Time Stop",
+  "level": 9,
+  "school": "Transmutation",
+  "casting_time": "Action",
+  "range_area": "Self",
+  "components": [
+    "V"
+  ],
+  "material_cost": null,
+  "duration": "Instantaneous",
+  "description": "You briefly stop the flow of time for everyone but yourself.",
+  "classes": [
+    "sorcerer",
+    "wizard"
+  ]
+}

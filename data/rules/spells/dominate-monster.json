@@ -1,0 +1,21 @@
+{
+  "id": "dominate-monster",
+  "name": "Dominate Monster",
+  "level": 8,
+  "school": "Enchantment",
+  "casting_time": "Action",
+  "range_area": "60 feet",
+  "components": [
+    "V",
+    "S"
+  ],
+  "material_cost": null,
+  "duration": "Concentration, up to 1 hour",
+  "description": "You attempt to beguile a creature that you can see within range.",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}
