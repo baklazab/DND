@@ -164,6 +164,16 @@ class DerivedStats(BaseModel):
     calculated_inventory: list[InventoryItem] = Field(default_factory=list)
 
 
+class SessionLogEntry(BaseModel):
+    id: str = Field(default_factory=lambda: uuid4().hex[:8])
+    label: str = Field(default="Hod", max_length=120)
+    dice: str = Field(default="1d20", max_length=30)
+    modifier: int = Field(default=0)
+    total: int = Field(default=0)
+    note: str = Field(default="", max_length=500)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
 class CharacterRecord(BaseModel):
     id: str
     name: str = Field(min_length=1, max_length=80)
@@ -171,6 +181,10 @@ class CharacterRecord(BaseModel):
     class_id: str
     background_id: str
     level: int = Field(ge=1, le=20)
+    xp: int = Field(default=0, ge=0)
+    session_xp: int = Field(default=0, ge=0)
+    session_note: str = Field(default="", max_length=2000)
+    last_session: str = Field(default="")
     base_ability_scores: AbilityScores
     background_ability_boosts: dict[Ability, int]
     final_ability_scores: AbilityScores
@@ -194,8 +208,15 @@ class CharacterRecord(BaseModel):
     origin_feat: str = ""
     general_feats: list[str] = Field(default_factory=list)
     selected_masteries: list[str] = Field(default_factory=list)
+    subclass_id: str | None = None
+    session_log: list[SessionLogEntry] = Field(default_factory=list)
 
 
 class CharacterSaveRequest(BaseModel):
     state: CharacterCreationState
     inventory: list[InventoryItem] = Field(default_factory=list)
+    xp: int = Field(default=0, ge=0)
+    session_xp: int = Field(default=0, ge=0)
+    session_note: str = Field(default="", max_length=2000)
+    last_session: str = Field(default="")
+    session_log: list[SessionLogEntry] = Field(default_factory=list)

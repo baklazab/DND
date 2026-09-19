@@ -5,6 +5,7 @@ import {
   Ability,
   InventoryItem,
   SavedCharacter,
+  SessionLogEntry,
   useCharacterStore,
 } from "../store/useCharacterStore";
 
@@ -94,7 +95,12 @@ const getItemSummary = (item: { id: string; name: string; category: string; quan
 };
 
 const formatApiError = (detail: unknown): string => {
-    if (typeof detail === "string") return detail;
+    if (typeof detail === "string") {
+      const cleaned = detail.replace(/\r\n/g, "\n").trim();
+      if (!cleaned) return "Vybral jsi špatně zvýšení atributů. Vyber pouze jeden +2 a jeden +1.";
+      const lines = cleaned.split("\n").map((line) => line.trim()).filter(Boolean);
+      return lines.length > 1 ? lines.join(" · ") : cleaned;
+    }
     if (Array.isArray(detail)) {
       const parts = detail.map(formatApiError).filter(Boolean);
       return parts.join(" · ");
@@ -1648,6 +1654,12 @@ function Profile({
   const [sessionXp, setSessionXp] = useState(character.session_xp ?? 0);
   const [sessionNote, setSessionNote] = useState(character.session_note ?? "");
   const [lastSession, setLastSession] = useState(character.last_session ?? "");
+  const [sessionLog, setSessionLog] = useState<SessionLogEntry[]>(character.session_log ?? []);
+  const [rollLabel, setRollLabel] = useState("Atak");
+  const [rollDice, setRollDice] = useState("1d20");
+  const [rollAbility, setRollAbility] = useState<Ability | "">("");
+  const [rollExtraModifier, setRollExtraModifier] = useState(0);
+  const [rollNote, setRollNote] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -1656,7 +1668,8 @@ function Profile({
     setSessionXp(character.session_xp ?? 0);
     setSessionNote(character.session_note ?? "");
     setLastSession(character.last_session ?? "");
-  }, [character.id, character.level, character.xp, character.session_xp, character.session_note, character.last_session]);
+    setSessionLog(character.session_log ?? []);
+  }, [character.id, character.level, character.xp, character.session_xp, character.session_note, character.last_session, character.session_log]);
 
   const deleteCharacter = async () => {
     onRequestConfirm({
@@ -1700,7 +1713,7 @@ function Profile({
       const response = await fetch(`${API}/api/characters/${character.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ state: character.creation_state, inventory }),
+        body: JSON.stringify({ state: character.creation_state, inventory, session_log: sessionLog }),
       });
       const body = await response.json();
       if (!response.ok) throw new Error(body.detail ?? "Uložení inventáře se nepodařilo.");
@@ -1708,6 +1721,32 @@ function Profile({
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Chyba uložení.");
     }
+  };
+
+  const addSessionRoll = () => {
+    const normalizedDice = rollDice.trim() || "1d20";
+    const match = normalizedDice.match(/^(\d+)d(\d+)$/i);
+    const diceCount = match ? Number(match[1]) : 1;
+    const diceSides = match ? Number(match[2]) : 20;
+    const rollValue = Array.from({ length: diceCount }, () => Math.floor(Math.random() * diceSides) + 1)
+      .reduce((sum, value) => sum + value, 0);
+    const modifier = (rollAbility ? character.modifiers[rollAbility] : 0) + rollExtraModifier;
+    const total = rollValue + modifier;
+    const entry: SessionLogEntry = {
+      id: crypto.randomUUID().slice(0, 8),
+      label: rollLabel.trim() || "Hod",
+      dice: normalizedDice,
+      modifier,
+      total,
+      note: rollNote.trim(),
+      created_at: new Date().toISOString(),
+    };
+    setSessionLog((current) => [entry, ...current].slice(0, 50));
+    setRollLabel("Atak");
+    setRollDice("1d20");
+    setRollAbility("");
+    setRollExtraModifier(0);
+    setRollNote("");
   };
 
   const updateLevel = async (nextLevel: number) => {
@@ -1725,6 +1764,7 @@ function Profile({
           session_xp: sessionXp,
           session_note: sessionNote,
           last_session: lastSession,
+          session_log: sessionLog,
         }),
       });
       const body = await response.json();
@@ -1747,6 +1787,7 @@ function Profile({
           session_xp: sessionXp,
           session_note: sessionNote,
           last_session: lastSession,
+          session_log: sessionLog,
         }),
       });
       const body = await response.json();
@@ -1930,6 +1971,36 @@ function Profile({
                 placeholder="Co se stalo, co se rozšířilo, co je potřeba v další session..."
               />
             </label>
+            <div className="mt-4 border-t border-[#3b3933] pt-4">
+              <p className="label gold">Session log hodů</p>
+              <div className="mt-3 grid gap-2 md:grid-cols-2">
+                <input value={rollLabel} onChange={(event) => setRollLabel(event.target.value)} placeholder="Např. Atak, Záchrana, Vnímání" className="border border-[#3b3933] bg-[#141311] p-2 text-sm" />
+                <input value={rollDice} onChange={(event) => setRollDice(event.target.value)} placeholder="1d20" className="border border-[#3b3933] bg-[#141311] p-2 text-sm" />
+                <select value={rollAbility} onChange={(event) => setRollAbility(event.target.value as Ability | "")} className="border border-[#3b3933] bg-[#141311] p-2 text-sm">
+                  <option value="">Bez atributu</option>
+                  {abilities.map((ability) => (
+                    <option key={ability} value={ability}>{labels[ability]}</option>
+                  ))}
+                </select>
+                <input type="number" value={rollExtraModifier} onChange={(event) => setRollExtraModifier(Number(event.target.value) || 0)} className="border border-[#3b3933] bg-[#141311] p-2 text-sm" />
+              </div>
+              <textarea value={rollNote} onChange={(event) => setRollNote(event.target.value)} placeholder="Poznámka k hodu (zbraň, kouzlo, okolnost, ... )" className="mt-2 block min-h-[70px] w-full border border-[#3b3933] bg-[#141311] p-2 text-sm" />
+              <button onClick={addSessionRoll} className="mt-3 bg-[#d69b4a] px-3 py-2 text-xs font-bold text-[#281b0d]">Přidat výsledek hodu</button>
+              <div className="mt-4 space-y-2">
+                {sessionLog.length === 0 ? (
+                  <p className="text-xs text-[#a99d87]">Zatím nejsou žádné záznamy hodů.</p>
+                ) : sessionLog.map((entry) => (
+                  <div key={entry.id} className="border border-[#3b3933] bg-[#1a1a18] p-3 text-xs">
+                    <div className="flex items-center justify-between gap-2">
+                      <strong className="gold">{entry.label}</strong>
+                      <span>{new Date(entry.created_at).toLocaleDateString()} {new Date(entry.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+                    <p className="mt-2 text-[#d9d2bf]">{entry.dice} + {entry.modifier >= 0 ? `+${entry.modifier}` : entry.modifier} = <strong>{entry.total}</strong></p>
+                    {entry.note && <p className="mt-1 text-[#a99d87]">{entry.note}</p>}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div>

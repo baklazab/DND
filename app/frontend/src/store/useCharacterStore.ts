@@ -6,6 +6,7 @@ export type AbilityMethod = "point_buy" | "standard_array" | "rolls" | "manual";
 export type InventoryCategory = "weapon" | "armor" | "item" | "tool" | "currency";
 
 export type InventoryItem = { id: string; name: string; category: InventoryCategory; quantity: number; notes: string };
+export type SessionLogEntry = { id: string; label: string; dice: string; modifier: number; total: number; note: string; created_at: string };
 export type CharacterDetails = { name: string; alignment: string; description: string };
 export type CharacterDraft = {
   class_id: string; species_id: string; background_id: string; level: number; ability_method: AbilityMethod;
@@ -23,6 +24,7 @@ export type SavedCharacter = {
   final_ability_scores: Scores; max_hp: number; armor_class: number; proficiency_bonus: number;
   modifiers: Record<Ability, number>; initiative: number; passive_perception: number;
   inventory: InventoryItem[]; details: CharacterDetails; creation_state: CharacterDraft; updated_at: string;
+  session_log: SessionLogEntry[];
   saving_throws: Record<string, { modifier: number; proficient: boolean; total: number; source: string }>;
   skill_bonuses: Record<string, { ability: string; modifier: number; proficient: boolean; total: number; source: string }>;
   proficiencies: { name: string; type: string; source: string }[];

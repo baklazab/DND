@@ -123,6 +123,7 @@ def build_record(request: CharacterSaveRequest, character_id: str | None = None)
         origin_feat=stats.origin_feat,
         general_feats=stats.general_feats,
         selected_masteries=stats.selected_masteries,
+        session_log=request.session_log,
         subclass_id=request.state.subclass_id,
     )
 
