@@ -8,7 +8,7 @@ import {
   useCharacterStore,
 } from "../store/useCharacterStore";
 
-const API = "";
+const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 const abilities: Ability[] = [
   "strength",
   "dexterity",
@@ -111,24 +111,22 @@ const formatApiError = (detail: unknown): string => {
 const cost = (score: number) =>
   score < 9 ? 0 : score - 8 + (score > 13 ? score - 13 : 0);
 
-// Mirrors backend rule_engine.py spell limit calculation so the wizard can enforce SRD limits live.
+// Mirrors backend rule_engine.py spell limit calculation so the spellcaster can enforce SRD limits live.
 function computeSpellLimits(
   classId: string,
   level: number,
   spellcastingType: string | undefined,
   cantripsLevel1: number,
+  castingModifier: number,
 ) {
   const cantripsLimit = cantripsLevel1 > 0 ? cantripsLevel1 + (level >= 4 ? 1 : 0) + (level >= 10 ? 1 : 0) : 0;
-  let leveledLimit = 4;
+  let leveledLimit = Math.max(1, level + castingModifier);
   let maxSpellLevel = 1;
   if (spellcastingType === "full") {
-    leveledLimit = Math.min(22, level + (classId === "bard" || classId === "druid" ? 3 : 4));
     maxSpellLevel = Math.min(9, Math.ceil(level / 2));
   } else if (spellcastingType === "half") {
-    leveledLimit = Math.min(15, Math.floor(level / 2) + 1);
     maxSpellLevel = Math.min(5, Math.ceil(level / 4));
   } else if (spellcastingType === "pact") {
-    leveledLimit = Math.min(15, level + 1);
     maxSpellLevel = Math.min(5, Math.ceil(level / 2));
   }
   return { cantripsLimit, leveledLimit, maxSpellLevel };
@@ -1430,7 +1428,7 @@ function Step8Equipment({ catalog }: { catalog: RuleCatalog | null }) {
 }
 
 function Step9Spells({ catalog }: { catalog: RuleCatalog | null }) {
-  const { class_id, level, selected_spells, toggleSpell } = useCharacterStore();
+  const { class_id, level, base_scores, background_boosts, selected_spells, toggleSpell } = useCharacterStore();
   const spellRule = catalog?.spellcasting[class_id];
   const currentClass = catalog?.classes.find((c) => c.id === class_id);
   const spells = (catalog?.spells ?? []).filter((s) => s.classes.includes(class_id));
@@ -1447,11 +1445,15 @@ function Step9Spells({ catalog }: { catalog: RuleCatalog | null }) {
     );
   }
 
+  const castingAbility = spellRule.ability as keyof typeof base_scores;
+  const castingScore = (base_scores[castingAbility] ?? 8) + (background_boosts[castingAbility] ?? 0);
+  const castingModifier = Math.floor((castingScore - 10) / 2);
   const { cantripsLimit, leveledLimit, maxSpellLevel } = computeSpellLimits(
     class_id,
     level,
     currentClass?.spellcasting,
     spellRule.cantrips_level_1,
+    castingModifier,
   );
   const spellLevels = Array.from(new Set(spells.map((s) => s.level)))
     .filter((lvl) => lvl === 0 || lvl <= maxSpellLevel)

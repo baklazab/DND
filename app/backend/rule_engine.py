@@ -119,6 +119,32 @@ def _modifier(score: int) -> int:
     return math.floor((score - 10) / 2)
 
 
+def _compute_spell_limits(class_rule: dict[str, Any], spellcasting_rule: dict[str, Any], state: CharacterCreationState, casting_modifier: int) -> tuple[int, int, int]:
+    spellcasting_type = class_rule.get("spellcasting", "none")
+    cantrips_limit = 0
+    base_cantrips = spellcasting_rule.get("cantrips_level_1", 0)
+    if base_cantrips > 0:
+        cantrips_limit = base_cantrips + (1 if state.level >= 4 else 0) + (1 if state.level >= 10 else 0)
+
+    if spellcasting_type == "full":
+        max_spell_level = min(9, math.ceil(state.level / 2))
+    elif spellcasting_type == "half":
+        max_spell_level = min(5, math.ceil(state.level / 4))
+    elif spellcasting_type == "pact":
+        max_spell_level = min(5, math.ceil(state.level / 2))
+    else:
+        max_spell_level = 1
+
+    if "known_level_1" in spellcasting_rule:
+        leveled_limit = max(1, spellcasting_rule.get("known_level_1", 1) + max(0, state.level - 1) // 2)
+    elif "prepared_level_1" in spellcasting_rule:
+        leveled_limit = max(1, state.level + casting_modifier)
+    else:
+        leveled_limit = max(1, state.level + casting_modifier)
+
+    return cantrips_limit, leveled_limit, max_spell_level
+
+
 def _validate_boosts(boosts: dict[Ability, int], allowed: list[str]) -> None:
     if not boosts:
         return
@@ -223,6 +249,13 @@ def calculate_stats(state: CharacterCreationState, rules_root: Path = DEFAULT_RU
         if not _is_weapon_trained_for_class(class_rule, weapon, state.class_id):
             raise ValueError(f"{class_rule['name']} is not trained with weapon '{weapon['name']}'")
 
+    # Scores & Modifiers
+    scores = state.base_scores.model_dump()
+    for ability, boost in state.background_boosts.items():
+        scores[ability.value] += boost
+    final_scores = AbilityScores(**scores)
+    modifiers = {ability: _modifier(getattr(final_scores, ability.value)) for ability in ABILITY_NAMES}
+
     spell_files = sorted((rules_root / "spells").glob("*.json"))
     spell_ids = {spell["id"]: spell for spell in (_load_catalog(f"spells/{path.name}", rules_root) for path in spell_files)}
     if len(set(state.selected_spells)) != len(state.selected_spells):
@@ -236,28 +269,9 @@ def calculate_stats(state: CharacterCreationState, rules_root: Path = DEFAULT_RU
     if spellcasting_rule:
         cantrip_ids = {spell_id for spell_id in state.selected_spells if spell_ids.get(spell_id, {}).get("level") == 0}
         leveled_ids = {spell_id for spell_id in state.selected_spells if spell_ids.get(spell_id, {}).get("level", 0) > 0}
-        
-        # Cantrip limit for level 1-20
-        base_cantrips = spellcasting_rule.get("cantrips_level_1", 0)
-        if base_cantrips > 0:
-            cantrips_limit = base_cantrips + (1 if state.level >= 4 else 0) + (1 if state.level >= 10 else 0)
-        else:
-            cantrips_limit = 0
-
-        # Max spell level & Prepared/Known spells limit for level 1-20
-        spellcasting_type = class_rule.get("spellcasting", "none")
-        if spellcasting_type == "full":
-            leveled_limit = min(22, state.level + (3 if state.class_id in ("bard", "druid") else 4))
-            max_spell_level = min(9, math.ceil(state.level / 2))
-        elif spellcasting_type == "half":
-            leveled_limit = min(15, math.floor(state.level / 2) + 1)
-            max_spell_level = min(5, math.ceil(state.level / 4))
-        elif spellcasting_type == "pact":
-            leveled_limit = min(15, state.level + 1)
-            max_spell_level = min(5, math.ceil(state.level / 2))
-        else:
-            leveled_limit = 4
-            max_spell_level = 1
+        casting_ab_name = spellcasting_rule["ability"]
+        casting_mod = modifiers[Ability(casting_ab_name)]
+        cantrips_limit, leveled_limit, max_spell_level = _compute_spell_limits(class_rule, spellcasting_rule, state, casting_mod)
 
         for spell_id in state.selected_spells:
             spell = spell_ids.get(spell_id)
@@ -268,13 +282,6 @@ def calculate_stats(state: CharacterCreationState, rules_root: Path = DEFAULT_RU
             raise ValueError(f"Maximálně {cantrips_limit} cantripů je povoleno pro {class_rule['name']} na {state.level}. úrovni")
         if len(leveled_ids) > leveled_limit:
             raise ValueError(f"Maximálně {leveled_limit} připravených/známých kouzel je povoleno pro {class_rule['name']} na {state.level}. úrovni")
-
-    # Scores & Modifiers
-    scores = state.base_scores.model_dump()
-    for ability, boost in state.background_boosts.items():
-        scores[ability.value] += boost
-    final_scores = AbilityScores(**scores)
-    modifiers = {ability: _modifier(getattr(final_scores, ability.value)) for ability in ABILITY_NAMES}
 
     # Proficiency bonus & Level progression
     proficiency_bonus = 2 + (state.level - 1) // 4

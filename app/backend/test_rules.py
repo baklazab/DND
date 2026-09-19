@@ -104,6 +104,29 @@ class TestRuleEngine(unittest.TestCase):
         self.assertEqual(stats.spellcasting_stats["attack_bonus"], 5)  # 2 prof + 3 INT
         self.assertEqual(stats.spell_slots, {1: 2})
 
+    def test_wizard_level_3_int_14_has_modifier_based_prepared_spell_limit(self):
+        state = CharacterCreationState(
+            class_id="wizard",
+            species_id="elf",
+            background_id="sage",
+            level=3,
+            ability_method=AbilityMethod.point_buy,
+            base_scores=AbilityScores(
+                strength=15, dexterity=14, constitution=13,
+                intelligence=12, wisdom=10, charisma=8,
+            ),
+            background_boosts={Ability.intelligence: 2, Ability.wisdom: 1},
+            selected_skills=["arcana", "history"],
+            selected_spells=[
+                "fire-bolt", "mage-hand",
+                "magic-missile", "shield",
+                "hold-person", "invisibility",
+                "bless", "aid",
+            ],
+        )
+        with self.assertRaisesRegex(ValueError, "Maximálně 5"):
+            calculate_stats(state, RULES_ROOT)
+
     def test_monk_unarmored_defense_ignores_untrained_shield_and_uses_dex_wis(self):
         state = CharacterCreationState(
             class_id="monk",
