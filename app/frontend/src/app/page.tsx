@@ -54,9 +54,60 @@ const skillHelp: Record<string, string> = {
   survival: "Stopy, orientace a přežití v divočině.",
 };
 
-const pretty = (value: string) =>
-  value.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+const pretty = (value: unknown) => {
+  if (value == null) return "";
+  if (typeof value === "string") {
+    return value.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+  }
+  if (typeof value === "object") {
+    if ("name" in value && typeof value.name === "string") return value.name;
+    if ("id" in value && typeof value.id === "string") return value.id;
+    return "";
+  }
+  return String(value);
+};
 
+const getItemSummary = (item: { id: string; name: string; category: string; quantity: number }, catalog: RuleCatalog | null): string => {
+  if (!catalog) return "Položka v inventáři postavy.";
+
+  if (item.category === "weapon") {
+    const weapon = catalog.weapons.find((entry) => entry.id === item.id || entry.name.toLowerCase() === item.name.toLowerCase());
+    if (weapon) {
+      return `${weapon.damage} · útok: 1d20 + modifikátor, zranění: ${weapon.damage}`;
+    }
+    return "Zbraň pro útok a poškození v boji.";
+  }
+
+  if (item.category === "armor") {
+    const armor = catalog.armor.find((entry) => entry.id === item.id || entry.name.toLowerCase() === item.name.toLowerCase());
+    if (armor) {
+      return `AC ${armor.base_ac}${armor.dexterity_cap !== null ? ` · max. Dex ${armor.dexterity_cap}` : ""} · chrání před poškozením`;
+    }
+    return "Ochranná zbroj pro zvýšení AC.";
+  }
+
+  if (item.category === "tool") {
+    return "Nástroj pro dovednosti, rekvizitu nebo zásah z okolního světa.";
+  }
+
+  return "Vybavení a zásoby pro průzkum, cestování a každodenní hraní.";
+};
+
+const formatApiError = (detail: unknown): string => {
+    if (typeof detail === "string") return detail;
+    if (Array.isArray(detail)) {
+      const parts = detail.map(formatApiError).filter(Boolean);
+      return parts.join(" · ");
+    }
+    if (detail && typeof detail === "object") {
+      if ("msg" in detail && typeof detail.msg === "string") return detail.msg;
+      if ("message" in detail && typeof detail.message === "string") return detail.message;
+      if ("detail" in detail) return formatApiError((detail as { detail: unknown }).detail);
+      const firstValue = Object.values(detail).find((value) => typeof value === "string" || Array.isArray(value) || (value && typeof value === "object"));
+      if (firstValue) return formatApiError(firstValue);
+    }
+    return "Vybral jsi špatně zvýšení atributů. Vyber pouze jeden +2 a jeden +1.";
+  };
 const cost = (score: number) =>
   score < 9 ? 0 : score - 8 + (score > 13 ? score - 13 : 0);
 
@@ -197,6 +248,15 @@ type EquipmentItem = { id: string; name: string; category: string; quantity: num
 type EquipmentOption = { optionId: string; label: string; items: EquipmentItem[] };
 type EquipmentGroup = { groupId: string; label: string; source: "class" | "background"; required: boolean; options: EquipmentOption[] };
 
+type RuleSubclass = {
+  id: string;
+  class_id: string;
+  name: string;
+  level: number;
+  description: string;
+  features: string[];
+};
+
 type RuleCatalog = {
   classes: RuleClass[];
   backgrounds: RuleBackground[];
@@ -206,6 +266,7 @@ type RuleCatalog = {
   feats: RuleFeat[];
   weapons: RuleWeapon[];
   armor: RuleArmor[];
+  subclasses: RuleSubclass[];
   spellcasting: Record<string, { ability: Ability; cantrips_level_1: number; prepared_level_1?: number; prepared_level_2?: number; known_level_1?: number; known_level_2?: number }>;
   starting_equipment: {
     class_equipment: Record<string, EquipmentGroup[]>;
@@ -329,7 +390,7 @@ function Shell({
     <main className="mx-auto min-h-screen max-w-7xl px-4 py-6 md:px-8 md:py-10">
       <header className="mb-8 flex flex-col gap-4 border-b border-[#3b3933] pb-5 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="label gold">The Character Ledger · D&D 2024 SRD 5.2.1</p>
+          <p className="label gold">Kniha postav · D&D 2024 SRD 5.2.1</p>
           <h1 className="mt-2 text-3xl font-semibold md:text-5xl">{title}</h1>
           <p className="mt-2 text-sm text-[#a99d87]">{eyebrow}</p>
         </div>
@@ -539,7 +600,7 @@ function Wizard({
     JSON.stringify(boostValues.sort((a, b) => a - b)) === JSON.stringify([1, 2]) ||
     JSON.stringify(boostValues.sort((a, b) => a - b)) === JSON.stringify([1, 1, 1]);
   const skillRule = catalog?.character_creation.skill_choices[store.class_id];
-  const skillsValid = Boolean(skillRule && store.selected_skills.length === skillRule.count);
+  const skillsValid = !skillRule || store.selected_skills.length <= skillRule.count;
 
   useEffect(() => {
     const controller = new AbortController();
@@ -553,12 +614,14 @@ function Wizard({
       .then(async (response) => {
         const body = await response.json();
         if (!response.ok)
-          throw new Error(body.detail ?? "Výpočet se nezdařil.");
+          throw new Error(formatApiError(body.detail ?? body));
         return body;
       })
       .then(setStats)
       .catch((reason) => {
-        if (reason.name !== "AbortError") setError(reason.message);
+        if (reason.name !== "AbortError") {
+          setError(reason instanceof Error ? reason.message : "Vybral jsi špatně zvýšení atributů. Vyber pouze jeden +2 a jeden +1.");
+        }
       });
     return () => controller.abort();
   }, [
@@ -598,10 +661,10 @@ function Wizard({
       );
       const body = await response.json();
       if (!response.ok)
-        throw new Error(body.detail ?? "Postavu se nepodařilo uložit.");
+        throw new Error(formatApiError(body.detail ?? body));
       onSaved(body);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Chyba ukládání.");
+      setError(reason instanceof Error ? reason.message : "Vybral jsi špatně zvýšení atributů. Vyber pouze jeden +2 a jeden +1.");
     } finally {
       setSaving(false);
     }
@@ -609,15 +672,15 @@ function Wizard({
 
   const stepNames = [
     "Koncept",
-    "Class",
-    "Background",
-    "Species",
-    "Ability Scores",
-    "Proficiencies a Jazyky",
-    "Feats a Traits",
-    "Equipment",
-    "Spells",
-    "Review",
+    "Povolání",
+    "Původ",
+    "Druh",
+    "Atributy",
+    "Dovednosti a jazyky",
+    "Featy a vlastnosti",
+    "Vybavení",
+    "Kouzla",
+    "Shrnutí",
   ];
 
   return (
@@ -717,7 +780,7 @@ function Wizard({
             <div><span className="label">Prof. bonus</span> <span className="block">{stats ? `+${stats.proficiency_bonus}` : "–"}</span></div>
           </div>
           <div className="mt-4 border-t border-[#3b3933] pt-3">
-            <p className="label">Atributy (Finální)</p>
+            <p className="label">Atributy (finální)</p>
             <div className="mt-2 grid grid-cols-3 gap-1 text-xs">
               {abilities.map((ab) => (
                 <div key={ab} className="bg-[#22221f] p-1.5 text-center border border-[#3b3933]">
@@ -729,6 +792,13 @@ function Wizard({
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="mt-4 border-t border-[#3b3933] pt-3 text-xs text-[#a99d87] space-y-1">
+            <p><strong className="gold">Původ:</strong> {pretty(store.background_id)}</p>
+            <p><strong className="gold">Zázemí:</strong> {pretty(store.background_id)} · {store.details.alignment}</p>
+            <p><strong className="gold">Podpovolání:</strong> {store.subclass_id ? pretty(store.subclass_id) : "—"}</p>
+            <p><strong className="gold">Inventář:</strong> {stats?.calculated_inventory.length ?? 0} položek</p>
           </div>
         </aside>
       </div>
@@ -773,6 +843,13 @@ function Step1Concept({ catalog }: { catalog: RuleCatalog | null }) {
             </span>
           </div>
         </div>
+
+        <div className="border border-[#3b3933] bg-[#22221f] p-4 text-sm text-[#a99d87]">
+          <p className="label gold">Tvorba + vedení postavy</p>
+          <p className="mt-2">
+            Tato aplikace pokrývá celý cyklus postavy: tvorbu, výběr proficience, zázemí, vlastní vybavení, kouzla a následnou správu postavy během hry.
+          </p>
+        </div>
         <label className="block">
           <span className="label">Přesvědčení</span>
           <select
@@ -802,10 +879,14 @@ function Step1Concept({ catalog }: { catalog: RuleCatalog | null }) {
 function Step2Class({ catalog }: { catalog: RuleCatalog | null }) {
   const { class_id, level, setField, subclass_id, selected_masteries } = useCharacterStore();
   const currentClass = catalog?.classes.find((c) => c.id === class_id);
+  const availableSubclasses = (catalog?.subclasses ?? []).filter(
+    (subclass) => subclass.class_id === class_id && subclass.level <= level,
+  );
+  const selectedSubclass = availableSubclasses.find((subclass) => subclass.id === subclass_id) ?? null;
 
   return (
     <div>
-      <p className="label">Krok 02 / Povolání (Class)</p>
+      <p className="label">Krok 02 / Povolání</p>
       <h2 className="mt-2 text-3xl font-semibold">Vyber své povolání</h2>
       <div className="mt-6 grid gap-3 md:grid-cols-3">
         {(catalog?.classes ?? []).map((rule) => (
@@ -819,7 +900,7 @@ function Step2Class({ catalog }: { catalog: RuleCatalog | null }) {
               setField("subclass_id", null);
               setField("selected_masteries", selected_masteries.slice(0, rule.weapon_mastery_count));
               if (!rule.armor_training?.includes("shields")) setField("shield", false);
-              if (!(rule.armor_training ?? []).length) setField("armor", { base_ac: 10, category: "unarmored" });
+              setField("armor", { base_ac: 10, category: "unarmored" });
             }}
             className={`choice text-left ${rule.id === class_id ? "active" : ""}`}
           >
@@ -841,22 +922,37 @@ function Step2Class({ catalog }: { catalog: RuleCatalog | null }) {
         <div className="mt-8 border-t border-[#3b3933] pt-6">
           <p className="label gold">Vlastnosti povolání {currentClass.name}</p>
           <div className="mt-3 grid gap-3 md:grid-cols-2 text-sm text-[#a99d87]">
-            <p><strong>Hit Die:</strong> 1d{currentClass.hit_die} za úroveň</p>
+            <p><strong>Hod kostky:</strong> 1d{currentClass.hit_die} za úroveň</p>
             <p><strong>Zbroj:</strong> {currentClass.armor_training?.join(", ") || "Bez zbroje"}</p>
             <p><strong>Zbraně:</strong> {currentClass.proficiencies.join(", ")}</p>
-            <p><strong>Weapon Masteries:</strong> {currentClass.weapon_mastery_count}</p>
+            <p><strong>Mistrovství se zbraněmi:</strong> {currentClass.weapon_mastery_count}</p>
           </div>
 
           {level >= currentClass.subclass_level && (
             <div className="mt-6 border-t border-[#3b3933] pt-4">
               <label className="block max-w-md">
-                <span className="label gold">Subclass (Od {currentClass.subclass_level}. úrovně)</span>
-                <input
+                <span className="label gold">Podpovolání (od {currentClass.subclass_level}. úrovně)</span>
+                <select
                   value={subclass_id ?? ""}
-                  onChange={(e) => setField("subclass_id", e.target.value)}
+                  onChange={(e) => setField("subclass_id", e.target.value || null)}
                   className="mt-2 block w-full border border-[#3b3933] bg-[#22221f] p-3"
-                  placeholder="Zadej název podpovolání / specializace"
-                />
+                >
+                  <option value="">Vyber podpovolání</option>
+                  {availableSubclasses.map((subclass) => (
+                    <option key={subclass.id} value={subclass.id}>{subclass.name}</option>
+                  ))}
+                </select>
+                {selectedSubclass && (
+                  <div className="mt-3 border border-[#3b3933] bg-[#22221f] p-3 text-sm text-[#a99d87]">
+                    <p className="gold font-semibold">{selectedSubclass.name}</p>
+                    <p className="mt-1">{selectedSubclass.description}</p>
+                    {selectedSubclass.features.length > 0 && (
+                      <p className="mt-2 text-xs">
+                        <strong className="gold">Vlastnosti:</strong> {selectedSubclass.features.join(", ")}
+                      </p>
+                    )}
+                  </div>
+                )}
               </label>
             </div>
           )}
@@ -873,7 +969,7 @@ function Step3Background({ catalog }: { catalog: RuleCatalog | null }) {
 
   return (
     <div>
-      <p className="label">Krok 03 / Původ (Background)</p>
+      <p className="label">Krok 03 / Původ</p>
       <h2 className="mt-2 text-3xl font-semibold">Tvé zázemí a původ</h2>
       <div className="mt-6 grid gap-3 md:grid-cols-3">
         {(catalog?.backgrounds ?? []).map((bg) => (
@@ -894,7 +990,7 @@ function Step3Background({ catalog }: { catalog: RuleCatalog | null }) {
 
       {currentBg && (
         <div className="mt-8 border-t border-[#3b3933] pt-6">
-          <p className="label gold">Atributové zvýšení (Ability Score Increase)</p>
+          <p className="label gold">Zvýšení atributů</p>
           <p className="mt-1 text-xs text-[#a99d87]">
             Podle SRD 5.2.1 smíš zvýšit atributy pouze ze 3 povolených pro toto zázemí ({allowed.map(pretty).join(", ")}). Model +2/+1 nebo +1/+1/+1.
           </p>
@@ -923,7 +1019,7 @@ function Step4Species({ catalog }: { catalog: RuleCatalog | null }) {
 
   return (
     <div>
-      <p className="label">Krok 04 / Druh (Species)</p>
+      <p className="label">Krok 04 / Druh</p>
       <h2 className="mt-2 text-3xl font-semibold">Vyber svůj druh</h2>
       <p className="mt-1 text-xs text-[#a99d87]">
         V D&D 2024 SRD 5.2.1 druh neposkytuje zvýšení atributů, ale dává vrozené vlastnosti a volby.
@@ -983,9 +1079,9 @@ function Step5AbilityScores({ totalPoints }: { totalPoints: number }) {
   const { ability_method, setField, base_scores, setScore, swapScore, rollDiceScores, rolled_scores } = useCharacterStore();
 
   const methods = [
-    ["point_buy", "Point Buy (27 bodů)"],
-    ["standard_array", "Standard Array [15,14,13,12,10,8]"],
-    ["rolls", "Hody 4d6 (Drop Lowest)"],
+    ["point_buy", "Výkup bodů (27 bodů)"],
+    ["standard_array", "Standardní pole [15,14,13,12,10,8]"],
+    ["rolls", "Hody 4d6 (odhoď nejhorší)"],
     ["manual", "Ruční zadání"],
   ] as const;
 
@@ -1019,7 +1115,7 @@ function Step5AbilityScores({ totalPoints }: { totalPoints: number }) {
       {ability_method === "rolls" && (
         <div className="mt-4 flex items-center gap-4">
           <button onClick={rollDiceScores} className="bg-[#d69b4a] px-4 py-2 text-xs font-bold text-[#281b0d]">
-            🎲 Hodit nové hody (4d6 drop lowest)
+            🎲 Hodit nové hody (4d6, odhoď nejhorší)
           </button>
           {rolled_scores.length > 0 && (
             <span className="text-xs text-[#a99d87]">
@@ -1037,7 +1133,7 @@ function Step5AbilityScores({ totalPoints }: { totalPoints: number }) {
 
       {(ability_method === "standard_array" || ability_method === "rolls") && (
         <p className="mt-4 text-xs text-[#a99d87]">
-          Přiřaď každou z {ability_method === "standard_array" ? "šesti pevných hodnot" : "vyhozených hodnot"} přesně jednomu atributu — výběrem hodnoty u jiného atributu se hodnoty prohodí.
+          Přiřaď každou hodnotu jednomu atributu. Pokud upravíš hodnotu v jiném poli, hodnoty se jednoduše prohodí.
         </p>
       )}
 
@@ -1047,6 +1143,7 @@ function Step5AbilityScores({ totalPoints }: { totalPoints: number }) {
           const nextCost = cost(val + 1) - cost(val);
           const canInc = ability_method !== "point_buy" || (val < 15 && totalPoints + nextCost <= 27);
           const fixedSet = ability_method === "standard_array" ? [15, 14, 13, 12, 10, 8] : ability_method === "rolls" ? rolled_scores : null;
+
           return (
             <div key={ab} className="flex items-center justify-between border border-[#3b3933] p-3 bg-[#22221f]">
               <div>
@@ -1104,15 +1201,15 @@ function Step6Proficiencies({ catalog }: { catalog: RuleCatalog | null }) {
 
   return (
     <div>
-      <p className="label">Krok 06 / Proficiencies a Jazyky</p>
+      <p className="label">Krok 06 / Dovednosti a jazyky</p>
       <h2 className="mt-2 text-3xl font-semibold">Dovednosti a jazyky</h2>
 
       {rule && (
         <div className="mt-6">
           <div className="flex justify-between items-center">
             <p className="label gold">Dovednosti povolání (Povolání {pretty(class_id)})</p>
-            <span className={`label ${selected_skills.length === rule.count ? "text-[#d69b4a]" : ""}`}>
-              Vybráno {selected_skills.length} / {rule.count}
+            <span className="label">
+              Vybráno {selected_skills.length} / max {rule.count}
             </span>
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -1163,8 +1260,8 @@ function Step7FeatsTraits({ catalog }: { catalog: RuleCatalog | null }) {
 
   return (
     <div>
-      <p className="label">Krok 07 / Featy a Schopnosti</p>
-      <h2 className="mt-2 text-3xl font-semibold">Featy, Weapon Mastery a vlastnosti druhu</h2>
+      <p className="label">Krok 07 / Featy a vlastnosti</p>
+      <h2 className="mt-2 text-3xl font-semibold">Featy, mistrovství se zbraněmi a vlastnosti druhu</h2>
 
       <div className="mt-6 border border-[#3b3933] bg-[#22221f] p-4">
         <p className="label gold">Origin Feat (ze zázemí)</p>
@@ -1242,23 +1339,10 @@ function Step8Equipment({ catalog }: { catalog: RuleCatalog | null }) {
     background_id,
     equipment_choices,
     setEquipmentChoice,
-    armor,
-    shield,
-    setField,
-    selected_weapons,
-    toggleWeapon,
   } = useCharacterStore();
 
   const classGroups = catalog?.starting_equipment.class_equipment[class_id] ?? [];
   const bgGroups = catalog?.starting_equipment.background_equipment[background_id] ?? [];
-  const currentClass = catalog?.classes.find((c) => c.id === class_id);
-  const trainedArmor = currentClass?.armor_training ?? [];
-  const armorOptions = (catalog?.armor ?? []).filter(
-    (arm) => arm.category === "unarmored" || trainedArmor.includes(arm.category),
-  );
-  const canUseShield = trainedArmor.includes("shields");
-  const weaponLimit = currentClass?.weapon_mastery_count ?? 0;
-  const weaponChoices = catalog?.weapons ?? [];
 
   // Auto-select the first option for required groups so the UI never silently
   // relies on the backend's own default and the visible state always matches what gets saved.
@@ -1336,63 +1420,9 @@ function Step8Equipment({ catalog }: { catalog: RuleCatalog | null }) {
         </div>
 
         <div className="border-t border-[#3b3933] pt-6">
-          <div className="flex items-center justify-between gap-3">
-            <h3 className="text-xl gold font-semibold">Výběr zbraní</h3>
-            <span className="label">
-              Vybráno {selected_weapons.length} / {weaponLimit || "∞"}
-            </span>
-          </div>
-          <p className="mt-1 text-xs text-[#a99d87]">
-            Volba zbraní je součástí handoff flow a zajišťuje, že postava má korektní seznam hlavních zbraní pro příští rozvoj.
+          <p className="text-xs text-[#a99d87]">
+            Tato část slouží k výběru startovního vybavení a doplnění postavy před první hrou. Vybavení lze v profilu kdykoli upravit i během kampaně.
           </p>
-          <div className="mt-3 grid gap-2 md:grid-cols-2">
-            {weaponChoices.map((weapon) => {
-              const selected = selected_weapons.includes(weapon.id);
-              const atLimit = !selected && weaponLimit > 0 && selected_weapons.length >= weaponLimit;
-              return (
-                <button
-                  key={weapon.id}
-                  disabled={atLimit}
-                  onClick={() => toggleWeapon(weapon.id, weaponLimit || 99)}
-                  className={`border p-3 text-left disabled:cursor-not-allowed disabled:opacity-30 ${
-                    selected ? "border-[#d69b4a] text-[#d69b4a] bg-[#2e2617]" : "border-[#3b3933] text-[#a99d87]"
-                  }`}
-                >
-                  <strong className="block text-sm">{weapon.name}</strong>
-                  <span className="text-[10px] block mt-1">{weapon.category} · {weapon.damage}</span>
-                  <span className="text-[10px] block mt-1">{weapon.properties.join(", ") || "Bez zvláštních vlastností"}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="border-t border-[#3b3933] pt-6">
-          <h3 className="text-xl gold font-semibold">Ochranná zbroj a štít</h3>
-          <p className="mt-1 text-xs text-[#a99d87]">Zobrazeny jsou pouze zbroje, ve kterých je {pretty(class_id)} vycvičen/a podle SRD.</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {armorOptions.map((arm) => (
-              <button
-                key={arm.id}
-                onClick={() => setField("armor", { base_ac: arm.base_ac, category: arm.category as "unarmored" | "light" | "medium" | "heavy", dexterity_cap: arm.dexterity_cap ?? undefined })}
-                className={`border px-3 py-2 text-sm ${
-                  armor.base_ac === arm.base_ac && armor.category === arm.category ? "border-[#d69b4a] text-[#d69b4a] bg-[#2e2617]" : "border-[#3b3933] text-[#a99d87]"
-                }`}
-              >
-                {arm.name} (AC {arm.base_ac})
-              </button>
-            ))}
-          </div>
-          <label className={`mt-4 flex items-center gap-2 text-sm ${!canUseShield ? "opacity-30" : ""}`}>
-            <input
-              type="checkbox"
-              checked={shield}
-              disabled={!canUseShield}
-              onChange={(e) => setField("shield", e.target.checked)}
-              className="accent-[#d69b4a]"
-            />
-            Používat štít (+2 AC) {!canUseShield && "— tato třída není vycvičena se štítem"}
-          </label>
         </div>
       </div>
     </div>
@@ -1431,14 +1461,17 @@ function Step9Spells({ catalog }: { catalog: RuleCatalog | null }) {
 
   return (
     <div>
-      <p className="label">Krok 09 / Kouzla (Spellcasting)</p>
-      <h2 className="mt-2 text-3xl font-semibold">Výběr kouzel ({pretty(class_id)} – Úroveň {level})</h2>
+      <p className="label">Krok 09 / Kouzla</p>
+      <h2 className="mt-2 text-3xl font-semibold">Výběr kouzel ({pretty(class_id)} – úroveň {level})</h2>
       <p className="mt-1 text-xs text-[#a99d87]">
-        Kouzla sesílaná přes atribut: <span className="gold font-bold">{pretty(spellRule.ability)}</span> · Max. úroveň kouzla: <span className="gold font-bold">{maxSpellLevel}</span>
+        Kouzla jsou sesílána přes atribut: <span className="gold font-bold">{pretty(spellRule.ability)}</span> · Max. úroveň kouzla: <span className="gold font-bold">{maxSpellLevel}</span> · Save DC = 8 + bonus proficience + modul {pretty(spellRule.ability)} · Attack bonus = bonus proficience + modul {pretty(spellRule.ability)}
       </p>
       <div className="mt-3 flex gap-4 text-xs">
         <span className={selectedCantrips === cantripsLimit ? "gold" : "text-[#a99d87]"}>Cantripy: {selectedCantrips} / {cantripsLimit}</span>
-        <span className={selectedLeveled === leveledLimit ? "gold" : "text-[#a99d87]"}>Připravená/známá kouzla: {selectedLeveled} / {leveledLimit}</span>
+        <span className={selectedLeveled === leveledLimit ? "gold" : "text-[#a99d87]"}>Připravená kouzla: {selectedLeveled} / {leveledLimit}</span>
+      </div>
+      <div className="mt-3 border border-[#3b3933] bg-[#22221f] p-3 text-xs text-[#a99d87]">
+        Tato část pokrývá celé kouzelnické vedení postavy: výběr cantripů, připravených kouzel a přehled slotů při postupu do vyšších úrovní.
       </div>
 
       <div className="mt-6 space-y-6">
@@ -1507,6 +1540,12 @@ function Step10Review({
             <Metric name="Proficiency Bonus" value={`+${stats.proficiency_bonus}`} />
           </div>
 
+          {stats.subclass_id && (
+            <p className="text-xs text-[#a99d87]">
+              <strong className="gold">Podpovolání:</strong> {catalog?.subclasses.find((subclass) => subclass.id === stats.subclass_id)?.name ?? pretty(stats.subclass_id)}
+            </p>
+          )}
+
           <div>
             <p className="label gold">Záchranné hody</p>
             <div className="mt-2 grid grid-cols-2 gap-2 text-sm md:grid-cols-3">
@@ -1520,7 +1559,7 @@ function Step10Review({
           </div>
 
           <div>
-            <p className="label gold">Zdatné dovednosti</p>
+            <p className="label gold">Získané dovednosti</p>
             <div className="mt-2 flex flex-wrap gap-2 text-xs">
               {Object.entries(stats.skill_bonuses).filter(([, val]) => val.proficient).map(([skill, val]) => (
                 <span key={skill} className="border border-[#d69b4a] bg-[#2e2617] px-2 py-1 gold">
@@ -1531,16 +1570,16 @@ function Step10Review({
           </div>
 
           <div>
-            <p className="label gold">Proficiencies, Featy a Vlastnosti</p>
+            <p className="label gold">Odbornosti, featy a vlastnosti</p>
             <div className="mt-2 flex flex-wrap gap-2 text-xs">
               {stats.proficiencies.map((p, idx) => (
                 <span key={idx} className="border border-[#3b3933] bg-[#22221f] px-2 py-1">{p.name}</span>
               ))}
             </div>
             <p className="mt-2 text-xs text-[#a99d87]">
-              <strong className="gold">Origin Feat:</strong> {stats.origin_feat}
-              {stats.general_feats.length > 0 && <> · <strong className="gold">Obecné Featy:</strong> {stats.general_feats.join(", ")}</>}
-              {stats.selected_masteries.length > 0 && <> · <strong className="gold">Weapon Mastery:</strong> {stats.selected_masteries.map(pretty).join(", ")}</>}
+              <strong className="gold">Origin feat:</strong> {stats.origin_feat}
+              {stats.general_feats.length > 0 && <> · <strong className="gold">Obecné featy:</strong> {stats.general_feats.join(", ")}</>}
+              {stats.selected_masteries.length > 0 && <> · <strong className="gold">Mistrovství se zbraněmi:</strong> {stats.selected_masteries.map(pretty).join(", ")}</>}
             </p>
             {stats.species_traits.length > 0 && (
               <p className="mt-1 text-xs text-[#a99d87]"><strong className="gold">Vlastnosti druhu:</strong> {stats.species_traits.join(", ")}</p>
@@ -1552,16 +1591,16 @@ function Step10Review({
 
           {stats.spellcasting_stats && (
             <div>
-              <p className="label gold">Spellcasting</p>
+              <p className="label gold">Kouzla</p>
               <div className="mt-2 grid grid-cols-2 gap-2 text-xs md:grid-cols-4">
                 <Metric name="Atribut" value={pretty(stats.spellcasting_stats.ability)} />
-                <Metric name="Save DC" value={stats.spellcasting_stats.save_dc} />
+                <Metric name="Záchranné DC" value={stats.spellcasting_stats.save_dc} />
                 <Metric name="Útok kouzlem" value={`+${stats.spellcasting_stats.attack_bonus}`} />
                 <Metric name="Max. úroveň kouzla" value={stats.spellcasting_stats.max_spell_level} />
               </div>
               {Object.keys(stats.spell_slots).length > 0 && (
                 <p className="mt-2 text-xs text-[#a99d87]">
-                  <strong className="gold">Spell sloty:</strong>{" "}
+                  <strong className="gold">Sloty kouzel:</strong>{" "}
                   {Object.entries(stats.spell_slots).map(([lvl, count]) => `${lvl}. úroveň ×${count}`).join(", ")}
                 </p>
               )}
@@ -1602,7 +1641,20 @@ function Profile({
   const { startEdit, setView } = useCharacterStore();
   const [inventory, setInventory] = useState<InventoryItem[]>(character.inventory);
   const [newItemName, setNewItemName] = useState("");
+  const [gameplayLevel, setGameplayLevel] = useState(character.level);
+  const [xpValue, setXpValue] = useState(character.xp ?? 0);
+  const [sessionXp, setSessionXp] = useState(character.session_xp ?? 0);
+  const [sessionNote, setSessionNote] = useState(character.session_note ?? "");
+  const [lastSession, setLastSession] = useState(character.last_session ?? "");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setGameplayLevel(character.level);
+    setXpValue(character.xp ?? 0);
+    setSessionXp(character.session_xp ?? 0);
+    setSessionNote(character.session_note ?? "");
+    setLastSession(character.last_session ?? "");
+  }, [character.id, character.level, character.xp, character.session_xp, character.session_note, character.last_session]);
 
   const deleteCharacter = async () => {
     onRequestConfirm({
@@ -1656,6 +1708,53 @@ function Profile({
     }
   };
 
+  const updateLevel = async (nextLevel: number) => {
+    const boundedLevel = Math.min(20, Math.max(1, nextLevel));
+    setGameplayLevel(boundedLevel);
+
+    try {
+      const response = await fetch(`${API}/api/characters/${character.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          state: { ...character.creation_state, level: boundedLevel },
+          inventory,
+          xp: xpValue,
+          session_xp: sessionXp,
+          session_note: sessionNote,
+          last_session: lastSession,
+        }),
+      });
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.detail ?? "Úroveň postavy se nepodařila uložit.");
+      onChanged(body);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Chyba při změně úrovně.");
+    }
+  };
+
+  const saveGameplayState = async () => {
+    try {
+      const response = await fetch(`${API}/api/characters/${character.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          state: character.creation_state,
+          inventory,
+          xp: xpValue,
+          session_xp: sessionXp,
+          session_note: sessionNote,
+          last_session: lastSession,
+        }),
+      });
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.detail ?? "Uložení herního stavu se nepodařilo.");
+      onChanged(body);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Chyba uložení herního stavu.");
+    }
+  };
+
   return (
     <Shell
       title={character.name}
@@ -1689,6 +1788,82 @@ function Profile({
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1.2fr]">
         <section className="panel p-6 space-y-6">
+          <div className="border border-[#3b3933] bg-[#1b1714] p-4 shadow-[0_0_0_1px_rgba(216,155,91,0.08)]">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="label gold">Gameplay panel</p>
+                <h2 className="mt-1 text-2xl font-semibold">Přehled a level-up</h2>
+              </div>
+              <div className="rounded border border-[#d69b4a] bg-[#2e2617] px-3 py-1 text-sm font-bold text-[#d69b4a]">
+                Úroveň {gameplayLevel}
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+              <div className="border border-[#3b3933] bg-[#1a1a18] p-3">
+                <span className="label">HP</span>
+                <strong className="mt-1 block text-xl gold">{character.max_hp}</strong>
+              </div>
+              <div className="border border-[#3b3933] bg-[#1a1a18] p-3">
+                <span className="label">AC</span>
+                <strong className="mt-1 block text-xl gold">{character.armor_class}</strong>
+              </div>
+              <div className="border border-[#3b3933] bg-[#1a1a18] p-3">
+                <span className="label">Bonus prof.</span>
+                <strong className="mt-1 block text-xl gold">+{character.proficiency_bonus}</strong>
+              </div>
+              <div className="border border-[#3b3933] bg-[#1a1a18] p-3">
+                <span className="label">Initiativa</span>
+                <strong className="mt-1 block text-xl gold">{character.initiative >= 0 ? `+${character.initiative}` : character.initiative}</strong>
+              </div>
+            </div>
+
+            <div className="mt-5 border-t border-[#3b3933] pt-4 text-xs text-[#a99d87]">
+              <div className="flex items-center justify-between gap-3">
+                <p className="label gold">XP a postup</p>
+                <span className="gold font-semibold">{xpValue} XP</span>
+              </div>
+              <div className="mt-2 h-2 w-full overflow-hidden bg-[#1a1a18]">
+                <div
+                  className="h-full bg-gradient-to-r from-[#b87443] to-[#f6b56a]"
+                  style={{ width: `${Math.min(100, (xpValue / 355000) * 100)}%` }}
+                />
+              </div>
+              <div className="mt-2 flex items-center justify-between gap-2 text-[10px] uppercase tracking-[0.12em] text-[#a99d87]">
+                <span>lvl {gameplayLevel}</span>
+                <span>{xpValue} / 355000</span>
+              </div>
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => void updateLevel(gameplayLevel - 1)}
+                className="border border-[#3b3933] px-3 py-2 text-xs text-[#a99d87]"
+              >
+                −1 úroveň
+              </button>
+              <button
+                onClick={() => void updateLevel(gameplayLevel + 1)}
+                className="bg-[#d69b4a] px-3 py-2 text-xs font-bold text-[#281b0d]"
+              >
+                +1 úroveň
+              </button>
+              <button
+                onClick={() => void saveGameplayState()}
+                className="border border-[#d69b4a] bg-[#201a16] px-3 py-2 text-xs font-semibold text-[#f1c285]"
+              >
+                Uložit stav
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+            <Metric name="Povolání" value={pretty(character.class_id)} />
+            <Metric name="Druh" value={pretty(character.species_id)} />
+            <Metric name="Původ" value={pretty(character.background_id)} />
+            <Metric name="Přesvědčení" value={character.details.alignment || "—"} />
+          </div>
+
           <div>
             <p className="label gold">Atributy a modifikátory</p>
             <div className="mt-3 grid grid-cols-3 gap-2">
@@ -1711,6 +1886,50 @@ function Profile({
             </p>
           </div>
 
+          <div className="border border-[#3b3933] bg-[#1a1715] p-4">
+            <p className="label gold">Session tracking</p>
+            <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
+              <label className="block">
+                <span className="label">XP za session</span>
+                <input
+                  type="number"
+                  min={0}
+                  value={sessionXp}
+                  onChange={(event) => setSessionXp(Number(event.target.value) || 0)}
+                  className="mt-2 block w-full border border-[#3b3933] bg-[#141311] p-2"
+                />
+              </label>
+              <label className="block">
+                <span className="label">Celkem XP</span>
+                <input
+                  type="number"
+                  min={0}
+                  value={xpValue}
+                  onChange={(event) => setXpValue(Number(event.target.value) || 0)}
+                  className="mt-2 block w-full border border-[#3b3933] bg-[#141311] p-2"
+                />
+              </label>
+            </div>
+            <label className="mt-3 block">
+              <span className="label">Poslední session</span>
+              <input
+                type="date"
+                value={lastSession}
+                onChange={(event) => setLastSession(event.target.value)}
+                className="mt-2 block w-full border border-[#3b3933] bg-[#141311] p-2"
+              />
+            </label>
+            <label className="mt-3 block">
+              <span className="label">Poznámka k session</span>
+              <textarea
+                value={sessionNote}
+                onChange={(event) => setSessionNote(event.target.value)}
+                className="mt-2 block min-h-[90px] w-full border border-[#3b3933] bg-[#141311] p-2 text-sm"
+                placeholder="Co se stalo, co se rozšířilo, co je potřeba v další session..."
+              />
+            </label>
+          </div>
+
           <div>
             <p className="label gold">Záchranné hody</p>
             <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
@@ -1724,7 +1943,7 @@ function Profile({
           </div>
 
           <div>
-            <p className="label gold">Dovednosti (Skills)</p>
+            <p className="label gold">Dovednosti</p>
             <div className="mt-2 grid grid-cols-2 gap-1 text-xs">
               {Object.entries(character.skill_bonuses ?? {})
                 .filter(([, val]) => val.proficient)
@@ -1735,13 +1954,13 @@ function Profile({
                   </div>
                 ))}
               {Object.values(character.skill_bonuses ?? {}).every((val) => !val.proficient) && (
-                <span className="text-[#a99d87] col-span-2">Žádné zdatnosti v dovednostech.</span>
+                <span className="text-[#a99d87] col-span-2">Žádné dovednosti nejsou vybrány.</span>
               )}
             </div>
           </div>
 
           <div>
-            <p className="label gold">Proficiencies (zbraně, zbroj, nástroje)</p>
+            <p className="label gold">Odbornosti (zbraně, zbroj, nástroje)</p>
             <div className="mt-2 flex flex-wrap gap-2 text-xs">
               {(character.proficiencies ?? []).map((p, idx) => (
                 <span key={idx} className="border border-[#3b3933] bg-[#22221f] px-2 py-1">
@@ -1752,13 +1971,13 @@ function Profile({
           </div>
 
           <div>
-            <p className="label gold">Feat, Weapon Mastery a Vlastnosti druhu</p>
+            <p className="label gold">Featy, mistrovství se zbraněmi a vlastnosti druhu</p>
             <p className="mt-2 text-xs text-[#a99d87]">
-              <strong className="gold">Origin Feat:</strong> {character.origin_feat || "žádný"}
+              <strong className="gold">Origin feat:</strong> {character.origin_feat || "žádný"}
             </p>
             {character.selected_masteries?.length > 0 && (
               <p className="mt-1 text-xs text-[#a99d87]">
-                <strong className="gold">Weapon Mastery:</strong> {character.selected_masteries.map(pretty).join(", ")}
+                <strong className="gold">Mistrovství se zbraněmi:</strong> {character.selected_masteries.map(pretty).join(", ")}
               </p>
             )}
             {character.species_traits?.length > 0 && (
@@ -1766,11 +1985,16 @@ function Profile({
                 <strong className="gold">Vlastnosti druhu:</strong> {character.species_traits.join(", ")}
               </p>
             )}
+            {(character.general_feats?.length ?? 0) > 0 && (
+              <p className="mt-1 text-xs text-[#a99d87]">
+                <strong className="gold">Obecné featy:</strong> {character.general_feats.join(", ")}
+              </p>
+            )}
           </div>
 
           {character.class_features?.length > 0 && (
             <div>
-              <p className="label gold">Schopnosti povolání (Class Features)</p>
+              <p className="label gold">Schopnosti povolání</p>
               <div className="mt-2 flex flex-wrap gap-2 text-xs">
                 {character.class_features.map((feature, idx) => (
                   <span key={idx} className="border border-[#3b3933] bg-[#22221f] px-2 py-1">{feature}</span>
@@ -1817,6 +2041,51 @@ function Profile({
           )}
         </section>
 
+        <section className="panel p-6 lg:col-span-2">
+          <p className="label gold">Praktické vysvětlivky při hraní</p>
+          <h2 className="mt-1 text-2xl font-semibold">Jak postava funguje ve hře</h2>
+
+          <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div className="border border-[#3b3933] bg-[#22221f] p-4">
+              <p className="label gold">Origin</p>
+              <p className="mt-2 text-sm text-[#a99d87]">
+                <strong className="gold">{character.origin_feat || "Žádný origin feat"}</strong> je tvůj bonus z původu a pozadí. Většinou posiluje jednu zásadní vlastnost postavy, přístup k dovednosti nebo jiný praktický efekt. Při hraní se vždy podívej, zda tvůj origin nevyžaduje zvláštní akci, hod nebo pravidlo v dané situaci.
+              </p>
+            </div>
+
+            <div className="border border-[#3b3933] bg-[#22221f] p-4">
+              <p className="label gold">Útoky</p>
+              <p className="mt-2 text-sm text-[#a99d87]">
+                Na útok házíš <strong className="gold">1d20</strong> + bonus proficience + modifikátor zbraně. Pokud je zbraň nebo schopnost vhodná pro tvůj atribut, přičítá se právě ten modifikátor. Poškození se pak řeší zvlášť: kostka zbraně + modifikátor, podle typu útoku a zbraně.
+              </p>
+            </div>
+
+            <div className="border border-[#3b3933] bg-[#22221f] p-4">
+              <p className="label gold">Magie</p>
+              <p className="mt-2 text-sm text-[#a99d87]">
+                Pro kouzla se používá <strong className="gold">Save DC</strong> = 8 + bonus proficience + modifikátor kouzelnického atributu. K útoku kouzlem se přičítá bonus proficience + modifikátor atributu. Když kouzlo ovlivňuje cíl, hází se většinou na záchranný hod nebo na útok podle textu kouzla.
+              </p>
+            </div>
+
+            <div className="border border-[#3b3933] bg-[#22221f] p-4">
+              <p className="label gold">Poškození</p>
+              <p className="mt-2 text-sm text-[#a99d87]">
+                Základní vzorec je <strong className="gold">kostka poškození + modifikátor</strong>. U zbraní typicky přidáváš sílu nebo obratnost podle zbraně, u kouzel zase příslušný magický atribut. Vždy si ověř, zda je zbraň nebo magický efekt <em>vhodný pro danou situaci</em> a zda nepřidává zvláštní úpravu poškození.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 border border-[#3b3933] bg-[#1a1a18] p-4 text-sm text-[#a99d87]">
+            <p className="label gold">Rychlý přehled pro hru</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>Útok: 1d20 + bonus proficience + relevantní modifikátor.</li>
+              <li>Poškození: kostka zbraně/kouzla + modifikátor, podle typu útoku.</li>
+              <li>Save DC: 8 + bonus proficience + kouzelnický atribut.</li>
+              <li>Výhody a nevýhody při hodu se vždy aplikují před výsledkem.</li>
+            </ul>
+          </div>
+        </section>
+
         <section className="panel p-6">
           <div className="flex items-end justify-between">
             <div>
@@ -1828,7 +2097,18 @@ function Profile({
             </button>
           </div>
 
-          {error && <p className="mt-2 text-xs text-red-300">{error}</p>}
+              {error && <p className="mt-2 text-xs text-red-300">{error}</p>}
+
+          <div className="mt-5 grid grid-cols-2 gap-2 text-[10px] text-[#a99d87]">
+            <div className="border border-[#3b3933] bg-[#22221f] p-2">
+              <span className="label">Předměty</span>
+              <strong className="mt-1 block text-sm gold">{inventory.length}</strong>
+            </div>
+            <div className="border border-[#3b3933] bg-[#22221f] p-2">
+              <span className="label">Kouzla</span>
+              <strong className="mt-1 block text-sm gold">{character.creation_state.selected_spells.length}</strong>
+            </div>
+          </div>
 
           <div className="mt-5 space-y-2 max-h-96 overflow-y-auto pr-1">
             {inventory.map((item) => (

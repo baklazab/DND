@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
-from backend.schemas import Ability, AbilityScores, CharacterCreationState, Armor, AbilityMethod
-from backend.rule_engine import calculate_stats
+from backend.schemas import Ability, AbilityScores, CharacterCreationState, Armor, AbilityMethod, InventoryItem
+from backend.rule_engine import calculate_stats, get_level_from_xp, get_next_level_xp
 
 
 RULES_ROOT = Path("/app/data/rules") if Path("/app/data/rules").exists() else Path(__file__).resolve().parents[2] / "data" / "rules"
@@ -50,6 +50,15 @@ class TestRuleEngine(unittest.TestCase):
                 selected_skills=["athletics", "acrobatics"],
             )
             calculate_stats(state, RULES_ROOT)
+
+    def test_tool_inventory_category_is_allowed(self):
+        item = InventoryItem(
+            name="Thieves' Tools",
+            category="tool",
+            quantity=1,
+            notes="Background equipment",
+        )
+        self.assertEqual(item.category, "tool")
 
     def test_barbarian_unarmored_defense(self):
         state = CharacterCreationState(
@@ -134,6 +143,54 @@ class TestRuleEngine(unittest.TestCase):
         )
         with self.assertRaises(ValueError):
             calculate_stats(state, RULES_ROOT)
+
+    def test_xp_progression_and_session_leveling(self):
+        self.assertEqual(get_level_from_xp(0), 1)
+        self.assertEqual(get_level_from_xp(299), 1)
+        self.assertEqual(get_level_from_xp(300), 2)
+        self.assertEqual(get_level_from_xp(5000), 4)
+        self.assertEqual(get_next_level_xp(1), 300)
+        self.assertEqual(get_next_level_xp(5), 14000)
+        self.assertEqual(get_next_level_xp(20), 0)
+
+    def test_fighter_subclass_is_valid_at_level_3_and_rejected_earlier(self):
+        valid_state = CharacterCreationState(
+            class_id="fighter",
+            species_id="human",
+            background_id="soldier",
+            level=3,
+            ability_method=AbilityMethod.point_buy,
+            base_scores=AbilityScores(
+                strength=15, dexterity=14, constitution=13,
+                intelligence=12, wisdom=10, charisma=8,
+            ),
+            background_boosts={Ability.strength: 2, Ability.constitution: 1},
+            selected_skills=["athletics", "acrobatics"],
+            armor=Armor(base_ac=16, dexterity_cap=0, category="heavy"),
+            shield=True,
+            subclass_id="battle-master",
+        )
+        stats = calculate_stats(valid_state, RULES_ROOT)
+        self.assertEqual(stats.subclass_id, "battle-master")
+        self.assertIn("Battle Master", " ".join(stats.class_features))
+
+        with self.assertRaises(ValueError):
+            CharacterCreationState(
+                class_id="fighter",
+                species_id="human",
+                background_id="soldier",
+                level=2,
+                ability_method=AbilityMethod.point_buy,
+                base_scores=AbilityScores(
+                    strength=15, dexterity=14, constitution=13,
+                    intelligence=12, wisdom=10, charisma=8,
+                ),
+                background_boosts={Ability.strength: 2, Ability.constitution: 1},
+                selected_skills=["athletics", "acrobatics"],
+                armor=Armor(base_ac=16, dexterity_cap=0, category="heavy"),
+                shield=True,
+                subclass_id="battle-master",
+            )
 
 
 if __name__ == "__main__":

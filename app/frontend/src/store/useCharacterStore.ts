@@ -3,7 +3,7 @@ import { create } from "zustand";
 export type Ability = "strength" | "dexterity" | "constitution" | "intelligence" | "wisdom" | "charisma";
 export type Scores = Record<Ability, number>;
 export type AbilityMethod = "point_buy" | "standard_array" | "rolls" | "manual";
-export type InventoryCategory = "weapon" | "armor" | "item" | "currency";
+export type InventoryCategory = "weapon" | "armor" | "item" | "tool" | "currency";
 
 export type InventoryItem = { id: string; name: string; category: InventoryCategory; quantity: number; notes: string };
 export type CharacterDetails = { name: string; alignment: string; description: string };
@@ -18,6 +18,7 @@ export type CharacterDraft = {
 };
 export type SavedCharacter = {
   id: string; name: string; species_id: string; class_id: string; background_id: string; level: number;
+  xp: number; session_xp: number; session_note: string; last_session: string;
   base_ability_scores: Scores; background_ability_boosts: Partial<Record<Ability, number>>;
   final_ability_scores: Scores; max_hp: number; armor_class: number; proficiency_bonus: number;
   modifiers: Record<Ability, number>; initiative: number; passive_perception: number;
@@ -43,7 +44,7 @@ export const newDraft = (): CharacterDraft => ({
   background_boosts: { strength: 2, constitution: 1 },
   species_choices: {}, equipment_choices: {}, rolled_scores: [],
   selected_masteries: ["push"], selected_weapons: [], starting_equipment_choices: {}, selected_spells: [], selected_skills: [],
-  selected_languages: ["Common"], details: { ...emptyDetails }, armor: { base_ac: 16, category: "heavy", dexterity_cap: 0 },
+  selected_languages: ["Common"], details: { ...emptyDetails }, armor: { base_ac: 10, category: "unarmored" },
   shield: false, proficient_perception: false, subclass_id: null, general_feats: [],
 });
 

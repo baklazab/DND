@@ -26,6 +26,12 @@ def _resolve_rules_root() -> Path:
 
 ABILITY_NAMES = tuple(Ability)
 DEFAULT_RULES_ROOT = _resolve_rules_root()
+XP_LEVELS = [
+    0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000,
+    85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000,
+    305000, 355000,
+]
+
 FULL_CASTER_SLOTS = {
     1: {1: 2}, 2: {1: 3}, 3: {1: 4, 2: 2}, 4: {1: 4, 2: 3},
     5: {1: 4, 2: 3, 3: 2}, 6: {1: 4, 2: 3, 3: 3},
@@ -89,6 +95,23 @@ def _load_catalog(filename: str, rules_root: Path) -> Any:
     return json.loads((rules_root / filename).read_text(encoding="utf-8"))
 
 
+def get_level_from_xp(xp: int) -> int:
+    level = 1
+    for index, threshold in enumerate(XP_LEVELS[1:], start=2):
+        if xp < threshold:
+            return min(level, 20)
+        level = index
+    return 20
+
+
+def get_next_level_xp(level: int) -> int:
+    if level < 1:
+        return 0
+    if level >= 20:
+        return 0
+    return XP_LEVELS[level]
+
+
 def _modifier(score: int) -> int:
     return math.floor((score - 10) / 2)
 
@@ -97,12 +120,10 @@ def _validate_boosts(boosts: dict[Ability, int], allowed: list[str]) -> None:
     if not boosts:
         return
     if any(ability.value not in allowed for ability in boosts):
-        raise ValueError(f"Background boosts must use only allowed abilities: {', '.join(allowed)}")
+        raise ValueError("Vybral jsi špatně zvýšení atributů. Vyber pouze jeden +2 a jeden +1.")
     values = sorted(boosts.values())
-    if values not in ([1, 1, 1], [1, 2]):
-        raise ValueError("Background boosts must be +2/+1 or +1/+1/+1")
-    if len(boosts) not in (2, 3):
-        raise ValueError("Background boosts must target two or three different abilities")
+    if len(boosts) != 2 or values != [1, 2]:
+        raise ValueError("Vybral jsi špatně zvýšení atributů. Vyber pouze jeden +2 a jeden +1.")
 
 
 def _weapon_has_property(weapon: dict[str, Any], property_name: str) -> bool:
@@ -149,14 +170,15 @@ def calculate_stats(state: CharacterCreationState, rules_root: Path = DEFAULT_RU
 
     # Skill validation
     skill_rule = creation_rules["skill_choices"].get(state.class_id, {"count": 2, "options": []})
-    if len(set(state.selected_skills)) != len(state.selected_skills):
-        raise ValueError("Selected skills must be unique")
     class_skills_count = skill_rule["count"]
-    if len(state.selected_skills) != class_skills_count:
-        raise ValueError(f"Choose exactly {class_skills_count} class skills")
-    for skill in state.selected_skills:
-        if skill not in skill_rule["options"]:
-            raise ValueError(f"Skill '{skill}' is not in allowed class skill options")
+    if state.selected_skills:
+        if len(set(state.selected_skills)) != len(state.selected_skills):
+            raise ValueError("Selected skills must be unique")
+        if len(state.selected_skills) > class_skills_count:
+            raise ValueError(f"Choose at most {class_skills_count} class skills")
+        for skill in state.selected_skills:
+            if skill not in skill_rule["options"]:
+                raise ValueError(f"Skill '{skill}' is not in allowed class skill options")
 
     # Background boost validation
     _validate_boosts(state.background_boosts, background_rule["allowed_ability_boosts"])
@@ -244,9 +266,6 @@ def calculate_stats(state: CharacterCreationState, rules_root: Path = DEFAULT_RU
         if len(leveled_ids) > leveled_limit:
             raise ValueError(f"Maximálně {leveled_limit} připravených/známých kouzel je povoleno pro {class_rule['name']} na {state.level}. úrovni")
 
-    if state.subclass_id and state.level < class_rule["subclass_level"]:
-        raise ValueError(f"Subclass selection available at level {class_rule['subclass_level']}")
-
     # Scores & Modifiers
     scores = state.base_scores.model_dump()
     for ability, boost in state.background_boosts.items():
@@ -257,10 +276,22 @@ def calculate_stats(state: CharacterCreationState, rules_root: Path = DEFAULT_RU
     # Proficiency bonus & Level progression
     proficiency_bonus = 2 + (state.level - 1) // 4
     all_class_levels = _load_catalog("class-levels.json", rules_root).get(state.class_id, {})
+    subclasses_catalog = _load_catalog("subclasses.json", rules_root)
+    subclass_record = next((entry for entry in subclasses_catalog if entry.get("id") == state.subclass_id), None)
+    if state.subclass_id and subclass_record is None:
+        raise ValueError(f"Vybrané podpovolání '{state.subclass_id}' neexistuje v katalogu pravidel.")
+    if state.subclass_id and subclass_record and subclass_record.get("class_id") != state.class_id:
+        raise ValueError(f"Podpovolání '{subclass_record.get('name', state.subclass_id)}' nepatří k povolání {class_rule['name']}.")
+    if state.subclass_id and state.level < class_rule["subclass_level"]:
+        raise ValueError(f"Subclass selection available at level {class_rule['subclass_level']}")
+
     class_features: list[str] = []
     for lvl in range(1, state.level + 1):
         features_at_lvl = all_class_levels.get(str(lvl), [])
         class_features.extend(features_at_lvl)
+    if subclass_record:
+        class_features.append(subclass_record.get("name", "Subclass"))
+        class_features.extend(subclass_record.get("features", []))
 
     species_traits = list(species_rule.get("traits", []))
     if state.species_choices:

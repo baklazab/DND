@@ -8,7 +8,7 @@ from uuid import uuid4
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from .rule_engine import calculate_stats
+from .rule_engine import calculate_stats, get_level_from_xp
 from .schemas import CharacterCreationState, CharacterRecord, CharacterSaveRequest, DerivedStats
 
 
@@ -43,6 +43,7 @@ def rules_catalog() -> dict[str, object]:
     catalog["srd_sections"] = json.loads((rules_root / "srd-sections" / "index.json").read_text(encoding="utf-8"))
     for catalog_name in ("masteries", "feats", "weapons", "armor", "tools"):
         catalog[catalog_name] = json.loads((rules_root / f"{catalog_name}.json").read_text(encoding="utf-8"))
+    catalog["subclasses"] = json.loads((rules_root / "subclasses.json").read_text(encoding="utf-8"))
     catalog["spellcasting"] = json.loads((rules_root / "spellcasting.json").read_text(encoding="utf-8"))
     catalog["starting_equipment"] = json.loads((rules_root / "starting-equipment.json").read_text(encoding="utf-8"))
     catalog["class_levels"] = json.loads((rules_root / "class-levels.json").read_text(encoding="utf-8"))
@@ -84,6 +85,9 @@ def build_record(request: CharacterSaveRequest, character_id: str | None = None)
         stats = calculate_stats(request.state, rules_root)
     except ValueError as error:
         raise HTTPException(status_code=422, detail=str(error)) from error
+    level_from_xp = get_level_from_xp(request.xp)
+    if request.state.level != level_from_xp:
+        request.state.level = level_from_xp
     return CharacterRecord(
         id=character_id or uuid4().hex,
         name=request.state.details.name.strip(),
@@ -91,6 +95,10 @@ def build_record(request: CharacterSaveRequest, character_id: str | None = None)
         class_id=request.state.class_id,
         background_id=request.state.background_id,
         level=request.state.level,
+        xp=request.xp,
+        session_xp=request.session_xp,
+        session_note=request.session_note,
+        last_session=request.last_session,
         base_ability_scores=request.state.base_scores,
         background_ability_boosts=request.state.background_boosts,
         final_ability_scores=stats.final_scores,
@@ -114,6 +122,7 @@ def build_record(request: CharacterSaveRequest, character_id: str | None = None)
         origin_feat=stats.origin_feat,
         general_feats=stats.general_feats,
         selected_masteries=stats.selected_masteries,
+        subclass_id=request.state.subclass_id,
     )
 
 
